@@ -55,3 +55,7 @@ DML:
 DCL:
 DQL:
 TCL:
+
+28-01-2026
+==========
+Syntax:insert into tablename values(value1,'value2',value3);

@@ -1,0 +1,143 @@
+28-01-2026
+=========
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jan 28 10:34:42 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> create user mgdb identified by mgdb;
+SP2-0640: Not connected
+SQL> connect / as sysdba;
+Connected.
+SQL> create user mgdb identified by mgdb;
+
+User created.
+
+SQL> connect mgdb;
+Enter password:
+ERROR:
+ORA-01045: user MGDB lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> grant all previliges to mgdb;
+SP2-0640: Not connected
+SQL> connect / as sysdba;
+Connected.
+SQL> grant all previliges to mgdb;
+grant all previliges to mgdb
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege
+
+
+SQL> grant all previleges to mgdb;
+grant all previleges to mgdb
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege
+
+
+SQL> grant all privileges to mgdb;
+
+Grant succeeded.
+
+SQL> connect mgdb;
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect mgdb;
+Enter password:
+Connect
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jan 28 10:52:29 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect mgdb;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+no rows selected
+
+SQL> create table student(htno number(2),sname varchar2(10),marks number(3));
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(2)
+ SNAME                                              VARCHAR2(10)
+ MARKS                                              NUMBER(3)
+
+SQL>
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Jan 28 11:02:29 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect mgdb;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STUDENT                        TABLE
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(2)
+ SNAME                                              VARCHAR2(10)
+ MARKS                                              NUMBER(3)
+
+SQL> select * from student;
+
+no rows selected
+
+SQL> insert into student values(101,'Krishna',500);
+insert into student values(101,'Krishna',500)
+                           *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into student values(10,'Krishna',500);
+
+1 row created.
+
+SQL> select * from student;
+
+      HTNO SNAME           MARKS
+---------- ---------- ----------
+        10 Krishna           500
+
+SQL> insert into student values(11,'Rajesh',900);
+
+1 row created.
+
+SQL> insert into student values(12,'Mahesh',700);
+
+1 row created.
+
+SQL> insert into student values(13,'Suresh',600);
+
+1 row created.
+
+SQL> select * from student;
+
+      HTNO SNAME           MARKS
+---------- ---------- ----------
+        10 Krishna           500
+        11 Rajesh            900
+        12 Mahesh            700
+        13 Suresh            600
+
+SQL>

@@ -1,0 +1,139 @@
+DataBase:Memory
+--------
+Collection of Tables,
+
+Data:Raw Facts:   Krishna
+Information:Processed data.
+N.Krishna Male 30 Trainer QT Ameerpet 
+
+Contacts:DataBase:Memory:Cloud
+
+Traditional:Olden days 
+
+Modern:
+
+Build:URL:www.amzon.in
+Presentation Layer
+DataBase Layer
+Logical/Functonal Layer
+
+select * from student; Queries
+
+FrontEnd:GUI 
+Clients/Customers/End Users 
+FrontEnd Developers:
+HTML CSS JS JQ BS RJS Anguler etc...
+
+BackEnd:CUI:
+BackEnd Developers
+Functonal:
+Functonal Developers:Programming Languages:Code/LOC/Programming 
+C C++ Java Python .net JS Ruby PHP etc..
+
+DataBase:Create Store Retrive Update Delete
+Queries:Oracle, MYSQL, SQL Server, etc...
+
+OracleDB: Queries
+
+DataBase:
+--------
+DataBase Developers:Amazon
+
+Table:Rows and Columns
+Empty DataBase Table:
+Fields:Columns:
+FirstName SurName Date Month Year 
+
+CRUD:Create Insert Retrive/Select Update/Modify Delete/Drop
+
+SQL: select htno from student where marks>=80;
+
+OracleDB:.exe Desktop Download and Install 
+
+DDL:
+DML:
+DCL:
+DQL:
+TCL:
+
+28-01-2026
+=================
+Syntax:insert into tablename values(value1,'value2',value3);
+Table:Rows and Columns
+Empty DataBase Table:
+Fields:Columns:
+FirstName SurName Date Month Year 
+
+CRUD:Create Insert Retrive/Select Update/Modify Delete/Drop
+
+SQL: select htno from student where marks>=80;
+
+OracleDB[11g]:.exe Desktop Download and Install 
+
+CRUD:
+-----
+DDL:Create,Alter,Rename,Truncate,Drop
+DML:Insert,Update,Delete
+DQL:Select
+DCL:Grant,Revoke
+TCL:Commit,RollBack,SavePoint
+
+sysdba
+
+DBA:
+User:
+DataBase:Tables:Data 
+
+Syntax:create user username identified by password;
+Example:create user mgdb identified by mgdb;
+
+Syntax:Create table tablename(Column1 datatype(Size),Coulmn2 datatype(Size),etc....);
+
+101	102	103	104 ......
+Krishna	Rajesh	Mohan 
+
+Syntax:insert into tablename values(value1,'value2',value3);
+
+
+29-01-2026
+---------
+29-01-2026
+----------
+DataBase/User 
+Table/s
+Create Table:
+Insert Records/Rows:
+Update Records:
+Select Records:
+Delete Records
+
+DDL:Create,Alter,Rename,Truncate,Drop
+DML:Insert,Update,Delete
+DQL:Select
+DCL:Grant,Revoke[SysDBA]
+TCL:Commit,RollBack,SavePoint
+
+UserName:qtm230
+Password:qtm230
+
+Syntax[Create USer]:create user username identified by password;
+Example:create user mgdb identified by mgdb;
+
+Syntax[Create Table]:Create table tablename(Column1 datatype(Size),Coulmn2 datatype(Size),etc....);
+
+Syntax[Insert Records]:insert into tablename values(value1,'value2',value3,.....)
+
+Syntax:[Select]:select * from tablename;
+
+Syntax[Update]:update tablename set columnname=newvalue where Condition;
+
+Syntax[Delete]:delete tablename where Condition;
+
+DataTypes:
+--------
+Numbers: 1001 1002 1003 1004 1005
+String:Krishna 
+char:50:  10 Krishna <10  40 500:50:450
+varchar:50: 10 500:50:450:490 2k
+varchar2:4k 
+

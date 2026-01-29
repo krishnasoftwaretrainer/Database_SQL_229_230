@@ -140,4 +140,379 @@ SQL> select * from student;
         12 Mahesh            700
         13 Suresh            600
 
+SQL>29-01-2026
+-----------
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Jan 29 10:11:52 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect / as sysdba;
+Connected.
+SQL> create user qtm230 identified by qtm230;
+
+User created.
+
+SQL> connect qtm230;
+Enter password:
+ERROR:
+ORA-01045: user QTM230 lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect / as sysdba;
+Connected.
+SQL> grant all privileges to qtm230;
+
+Grant succeeded.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> connect / as sysdba;
+Connected.
+SQL> revoke all privileges from qtm230;
+
+Revoke succeeded.
+
+SQL> connect qtm230;
+Enter password:
+ERROR:
+ORA-01045: user QTM230 lacks CREATE SESSION privilege; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> connect qtm230;
+Enter password:
+ERROR:
+ORA-01045: user QTM230 lacks CREATE SESSION privilege; logon denied
+
+
+SQL> grant all privileges to qtm230;
+SP2-0640: Not connected
+SQL> connect / as sysdba;
+Connected.
+SQL> grant all privileges to qtm230;
+
+Grant succeeded.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> create TaBle stu1(htno number(3),sname varchar2(50));
+
+Table created.
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(50)
+
+SQL> alter table stu1 add(marks number(3));
+
+Table altered.
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(3)
+ SNAME                                              VARCHAR2(50)
+ MARKS                                              NUMBER(3)
+
+SQL> alter table stu1 modify(htno number(4));
+
+Table altered.
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(4)
+ SNAME                                              VARCHAR2(50)
+ MARKS                                              NUMBER(3)
+
+SQL> alter table stu1 modify(sname char(20));
+
+Table altered.
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HTNO                                               NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> alter table stu1 rename column htno to stuid;
+
+Table altered.
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> rename stu1 to student;
+
+Table renamed.
+
+SQL> desc stu1;
+ERROR:
+ORA-04043: object stu1 does not exist
+
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> alter table student drop column marks;
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+
+SQL> alter table stu1 add(marks number(3));
+alter table stu1 add(marks number(3))
+*
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> alter table student add(marks number(3));
+
+Table altered.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> create table stu1 as select * from student;
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> desc student;
+ERROR:
+ORA-04043: object student does not exist
+
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> insert into stu1 values(1001,'Krishna',999);
+
+1 row created.
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+
+SQL> insert into stu1 values(1002,'Ramesh',899);
+
+1 row created.
+
+SQL> insert into stu1 values(1003,'Suresh',799);
+
+1 row created.
+
+SQL> insert into stu1 values(1004,'Mahesh',699);
+
+1 row created.
+
+SQL> insert into stu1 values(1005,'Ganesh',599);
+
+1 row created.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+
+SQL> insert into stu1 values(1006,'Ganesh',499);
+
+1 row created.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Ganesh                      499
+
+6 rows selected.
+
+SQL> update stu1 set sname='Rajesh' where stuid=1006;
+
+1 row updated.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update stu1 set sname='Rajesh';
+
+6 rows updated.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Rajesh                      999
+      1002 Rajesh                      899
+      1003 Rajesh                      799
+      1004 Rajesh                      699
+      1005 Rajesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into stu1 values(1111,'sdgsgs',000);
+
+1 row created.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+      1111 sdgsgs                        0
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete stu1;
+
+7 rows deleted.
+
+SQL> select * from stu1;
+
+no rows selected
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+      1111 sdgsgs                        0
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete stu1 where stuid=1111;
+
+1 row deleted.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
 SQL>

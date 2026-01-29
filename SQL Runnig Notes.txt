@@ -96,8 +96,6 @@ Syntax:insert into tablename values(value1,'value2',value3);
 
 
 29-01-2026
----------
-29-01-2026
 ----------
 DataBase/User 
 Table/s

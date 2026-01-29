@@ -140,7 +140,9 @@ SQL> select * from student;
         12 Mahesh            700
         13 Suresh            600
 
-SQL>29-01-2026
+SQL>
+
+29-01-2026
 -----------
 
 SQL*Plus: Release 11.2.0.2.0 Production on Thu Jan 29 10:11:52 2026

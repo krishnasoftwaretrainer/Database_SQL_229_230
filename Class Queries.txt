@@ -518,3 +518,721 @@ SQL> select * from stu1;
 6 rows selected.
 
 SQL>
+=====================
+30-01-2026
+--------
+
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+STU1                           TABLE
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> select stuid,sname from stu1;
+
+     STUID SNAME
+---------- --------------------
+      1001 Krishna
+      1002 Ramesh
+      1003 Suresh
+      1004 Mahesh
+      1005 Ganesh
+      1006 Rajesh
+
+6 rows selected.
+
+SQL> select stuid,sname from stu1 where sname='Ramesh';
+
+     STUID SNAME
+---------- --------------------
+      1002 Ramesh
+
+SQL> select stuid,sname from stu1 where marks>=700;
+
+     STUID SNAME
+---------- --------------------
+      1001 Krishna
+      1002 Ramesh
+      1003 Suresh
+
+SQL> select sname,marks from stu1 where marks>=700;
+
+SNAME                     MARKS
+-------------------- ----------
+Krishna                     999
+Ramesh                      899
+Suresh                      799
+
+SQL> create table emp1(eid number(5),ename varchar2(20),salary number(6,3),doj date);
+
+Table created.
+
+SQL> desc emp1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+ SALARY                                             NUMBER(6,3)
+ DOJ                                                DATE
+
+SQL> insert into emp1 values(1,'Krishna',523.123,'10-jan-85');
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+
+SQL> insert into emp1 values(1,'Krishna',523.123);
+insert into emp1 values(1,'Krishna',523.123)
+            *
+ERROR at line 1:
+ORA-00947: not enough values
+
+
+SQL> insert into emp1(eid,ename) values(2,'Suresh');
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+
+SQL> insert into emp1 values(&eid,&ename,&salary,&doj);
+Enter value for eid: 3
+Enter value for ename: 'Mahesh'
+Enter value for salary: 5689
+Enter value for doj: '01-jul-67'
+old   1: insert into emp1 values(&eid,&ename,&salary,&doj)
+new   1: insert into emp1 values(3,'Mahesh',5689,'01-jul-67')
+insert into emp1 values(3,'Mahesh',5689,'01-jul-67')
+                                   *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into emp1 values(&eid,&ename,&salary,&doj);
+Enter value for eid: 3
+Enter value for ename: 'abcd'
+Enter value for salary: 123
+Enter value for doj: '01-jul-67'
+old   1: insert into emp1 values(&eid,&ename,&salary,&doj)
+new   1: insert into emp1 values(3,'abcd',123,'01-jul-67')
+
+1 row created.
+
+SQL> /
+Enter value for eid: 4
+Enter value for ename: 'gggg'
+Enter value for salary: 987
+Enter value for doj: '01-jul-80'
+old   1: insert into emp1 values(&eid,&ename,&salary,&doj)
+new   1: insert into emp1 values(4,'gggg',987,'01-jul-80')
+
+1 row created.
+
+SQL> insert into emp1 values(&&eid,&&ename,&&salary,&&doj);
+Enter value for eid: 5
+Enter value for ename: 'yyyy'
+Enter value for salary: 345
+Enter value for doj: '01-aug-80'
+old   1: insert into emp1 values(&&eid,&&ename,&&salary,&&doj)
+new   1: insert into emp1 values(5,'yyyy',345,'01-aug-80')
+
+1 row created.
+
+SQL> //
+old   1: insert into emp1 values(&&eid,&&ename,&&salary,&&doj)
+new   1: insert into emp1 values(5,'yyyy',345,'01-aug-80')
+
+1 row created.
+
+SQL> //
+old   1: insert into emp1 values(&&eid,&&ename,&&salary,&&doj)
+new   1: insert into emp1 values(5,'yyyy',345,'01-aug-80')
+
+1 row created.
+
+SQL> //
+old   1: insert into emp1 values(&&eid,&&ename,&&salary,&&doj)
+new   1: insert into emp1 values(5,'yyyy',345,'01-aug-80')
+
+1 row created.
+
+SQL> select * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> create table emp2 as select * from emp1;
+
+Table created.
+
+SQL> create table emp3 as select * from emp1;
+
+Table created.
+
+SQL> create table emp4 as select * from emp1;
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+EMP3                           TABLE
+EMP4                           TABLE
+STU1                           TABLE
+
+SQL> select * from emp4;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> truncate table emp4;
+
+Table truncated.
+
+SQL> select * from emp4;
+
+no rows selected
+
+SQL> desc emp4;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+ SALARY                                             NUMBER(6,3)
+ DOJ                                                DATE
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from emp4;
+
+no rows selected
+
+SQL> drop emp4;
+drop emp4
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> drop table emp4;
+
+Table dropped.
+
+SQL> select * from emp4;
+select * from emp4
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc emp4;
+ERROR:
+ORA-04043: object emp4 does not exist
+
+
+SQL> roll back;
+Rollback complete.
+SQL> desc emp4;
+ERROR:
+ORA-04043: object emp4 does not exist
+
+
+SQL> select * from emp4;
+select * from emp4
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from emp3;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> drop table emp3;
+
+Table dropped.
+
+SQL> select * from emp3;
+select * from emp3
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc emp3;
+ERROR:
+ORA-04043: object emp3 does not exist
+
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+STU1                           TABLE
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> delete emp2;
+
+8 rows deleted.
+
+SQL> select * from emp2;
+
+no rows selected
+
+SQL> desc emp2;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                                NUMBER(5)
+ ENAME                                              VARCHAR2(20)
+ SALARY                                             NUMBER(6,3)
+ DOJ                                                DATE
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete emp2 where eid=1;
+
+1 row deleted.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+7 rows selected.
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> delete emp2 where eid=5;
+
+4 rows deleted.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+
+SQL> insert into emp2 values(5,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 gfg                         456 23-DEC-25
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+
+SQL> insert into emp2 values(5,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 gfg                         456 23-DEC-25
+
+SQL> insert into emp2 values(6,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 gfg                         456 23-DEC-25
+         6 gfg                         456 23-DEC-25
+
+6 rows selected.
+
+SQL> delete table emp2 where eid=6;
+delete table emp2 where eid=6
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> delete  emp2 where eid=6;
+
+1 row deleted.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 gfg                         456 23-DEC-25
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+
+SQL> insert into emp2 values(6,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         6 gfg                         456 23-DEC-25
+
+SQL> insert into emp2 values(5,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> insert into emp2 values(7,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> insert into emp2 values(8,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> update table emp2 set ename='Rao' where eid=8;
+update table emp2 set ename='Rao' where eid=8
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update emp2 set ename='Rao' where eid=8;
+
+1 row updated.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         6 gfg                         456 23-DEC-25
+         5 gfg                         456 23-DEC-25
+         7 gfg                         456 23-DEC-25
+         8 Rao                         456 23-DEC-25
+
+8 rows selected.
+
+SQL> roll back;
+Rollback complete.
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         6 gfg                         456 23-DEC-25
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         6 gfg                         456 23-DEC-25
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into emp2 values(5,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         6 gfg                         456 23-DEC-25
+         5 gfg                         456 23-DEC-25
+
+6 rows selected.
+
+SQL> delete  emp2 where eid=5;
+
+1 row deleted.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         6 gfg                         456 23-DEC-25
+
+SQL> insert into emp2 values(7,'gfg',456,'23-dec-25');
+
+1 row created.
+
+SQL> select * from emp2;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         7 gfg                         456 23-DEC-25
+         6 gfg                         456 23-DEC-25
+
+6 rows selected.
+
+SQL> select * from emp2 order by eid;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         6 gfg                         456 23-DEC-25
+         7 gfg                         456 23-DEC-25
+
+6 rows selected.
+
+SQL> insert into emp2 values(5,'ppp',456,'23-dec-25');
+
+1 row created.
+
+SQL> select * from emp2 order by eid;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 ppp                         456 23-DEC-25
+         6 gfg                         456 23-DEC-25
+         7 gfg                         456 23-DEC-25
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL>

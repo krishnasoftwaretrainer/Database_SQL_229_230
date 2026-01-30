@@ -134,4 +134,5 @@ String:Krishna
 char:50:  10 Krishna <10  40 500:50:450
 varchar:50: 10 500:50:450:490 2k
 varchar2:4k 
+======================
 

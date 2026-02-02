@@ -1,0 +1,45 @@
+SQL> connect qtm230;
+Enter password:
+Connected.
+
+Create Query:
+SQL> create table supplier(sup_no varchar2(2) primary key,sup_Name varchar2(20) not null,item_supplied varchar(20) not null,iteam_price number(5),city varchar2(20));
+
+Table created.
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+
+SQL> insert into supplier values('S1','Suresh','Keyboard',400,'Hyderabad');
+
+1 row created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+
+SQL> commit;
+
+SQL> insert into supplier  values('S2','Kiran','Processor',8000,'Delhi');
+
+1 row created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S2 Kiran                Processor                   8000 Delhi
+
+SQL> commit;
+
+Commit complete.
+

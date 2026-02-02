@@ -1236,3 +1236,116 @@ SQL> commit;
 Commit complete.
 
 SQL>
+==============
+02-02-202
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 2 10:13:19 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> create table supplier(sup_no varchar2(2) primary key,sup_Name varchar2(20) not null,item_supplied varchar(20) not null,iteam_price number(5),city varchar2(20));
+
+Table created.
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+     insert into supplier('S1','Suresh','Keyboard',400,'Hyderabad');
+insert into supplier('S1','Suresh','Keyboard',400,'Hyderabad')
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into supplier('S1','Suresh','Keyboard',400,'Hyderabad');
+insert into supplier('S1','Suresh','Keyboard',400,'Hyderabad')
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into supplier values('S1','Suresh','Keyboard',400,'Hyderabad');
+
+1 row created.
+
+SQL> insert into supplier values('S1','Suresh','Keyboard',400,'Hyderabad');
+insert into supplier values('S1','Suresh','Keyboard',400,'Hyderabad')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (QTM230.SYS_C007171) violated
+
+
+SQL> insert into supplier(sup_no,ITEM_SUPPLIED,ITEAM_PRICE,CITY) values('S2','gdfd',567,'gsdgs');
+insert into supplier(sup_no,ITEM_SUPPLIED,ITEAM_PRICE,CITY) values('S2','gdfd',567,'gsdgs')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("QTM230"."SUPPLIER"."SUP_NAME")
+
+
+SQL> insert into supplier(sup_no,SUP_NAME,ITEM_SUPPLIED,ITEAM_PRICE) values('S2','dgdsg','gdfd',567);
+
+1 row created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S2 dgdsg                gdfd                         567
+
+SQL> delete table supplier where sup_no='s2';
+delete table supplier where sup_no='s2'
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> delete supplier where sup_no='s2';
+
+0 rows deleted.
+
+SQL> delete supplier where sup_no='S2';
+
+1 row deleted.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+
+SQL> commit;
+
+Commit complete.
+     insert into supplier('S2','Kiran','Processor',8000,'Delhi');
+insert into supplier('S2','Kiran','Processor',8000,'Delhi')
+                     *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into supplier  values('S2','Kiran','Processor',8000,'Delhi');
+
+1 row created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S2 Kiran                Processor                   8000 Delhi
+
+SQL> commit;
+
+Commit complete.
+
+SQL>

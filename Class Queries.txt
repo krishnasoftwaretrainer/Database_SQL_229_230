@@ -1349,3 +1349,637 @@ SQL> commit;
 Commit complete.
 
 SQL>
+==========================
+03-02-2026
+------------
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Feb 3 10:12:34 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> selwct * from tab;
+SP2-0734: unknown command beginning "selwct * f..." - rest of line ignored.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+
+SQL> create table s1(id number(3),sal number(3) check(sal>500));
+
+Table created.
+
+SQL> desc s1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(3)
+ SAL                                                NUMBER(3)
+
+SQL> insert into s1 values(1,300);
+insert into s1 values(1,300)
+*
+ERROR at line 1:
+ORA-02290: check constraint (QTM230.SYS_C007178) violated
+
+
+SQL> insert into s1 values(1,500);
+insert into s1 values(1,500)
+*
+ERROR at line 1:
+ORA-02290: check constraint (QTM230.SYS_C007178) violated
+
+
+SQL> insert into s1 values(1,501);
+
+1 row created.
+
+SQL> insert into s1 values(2,601);
+
+1 row created.
+
+SQL> select * from s1;
+
+        ID        SAL
+---------- ----------
+         1        501
+         2        601
+
+SQL> alter table s1 add(empstatus varchar2(5) default 'active');
+alter table s1 add(empstatus varchar2(5) default 'active')
+                                                 *
+ERROR at line 1:
+ORA-01401: inserted value too large for column
+
+
+SQL> alter table s1 add(empstatus varchar2(5) default= 'active');
+alter table s1 add(empstatus varchar2(5) default= 'active')
+                                                *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> alter table s1 add empstatus varchar2(5) default= 'active';
+alter table s1 add empstatus varchar2(5) default= 'active'
+                                                *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> alter table s1 add empstatus varchar2(5) default 'active';
+alter table s1 add empstatus varchar2(5) default 'active'
+                                                 *
+ERROR at line 1:
+ORA-01401: inserted value too large for column
+
+
+SQL> alter table s1 add empstatus varchar2(8) default 'active';
+
+Table altered.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU
+---------- ---------- --------
+         1        501 active
+         2        601 active
+
+SQL> insert into s1(id,sal) values(3,701);
+
+1 row created.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU
+---------- ---------- --------
+         1        501 active
+         2        601 active
+         3        701 active
+
+SQL> insert into s1(id) values(4);
+
+1 row created.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU
+---------- ---------- --------
+         1        501 active
+         2        601 active
+         3        701 active
+         4            active
+
+SQL> select * from dual;
+
+D
+-
+X
+
+SQL> select 2+3 from dual;
+
+       2+3
+----------
+         5
+
+SQL> select 2+3 from s1;
+
+       2+3
+----------
+         5
+         5
+         5
+         5
+
+SQL> select 2-3 from dual;
+
+       2-3
+----------
+        -1
+
+SQL> select 2-3 as Substraction from dual;
+
+SUBSTRACTION
+------------
+          -1
+
+SQL> select 2*3 as Mul from dual;
+
+       MUL
+----------
+         6
+
+SQL> alter table s1 da number(3) default 200;
+alter table s1 da number(3) default 200
+               *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table s1 add da number(3) default 200;
+
+Table altered.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU         DA
+---------- ---------- -------- ----------
+         1        501 active          200
+         2        601 active          200
+         3        701 active          200
+         4            active          200
+
+SQL> alter table s1 add totalsal number(4);
+
+Table altered.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200
+         2        601 active          200
+         3        701 active          200
+         4            active          200
+
+SQL> update s1 set totalsal=sal+da where id=1;
+
+1 row updated.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+         2        601 active          200
+         3        701 active          200
+         4            active          200
+
+SQL> update s1 set totalsal=sal+da;
+
+4 rows updated.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+         2        601 active          200        801
+         3        701 active          200        901
+         4            active          200
+
+SQL> select * from s1; where sal>=600;
+select * from s1; where sal>=600
+                *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select * from s1 where sal>=600;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         2        601 active          200        801
+         3        701 active          200        901
+
+SQL> select * from s1 where sal=600;
+
+no rows selected
+
+SQL> select * from s1 where sal==600;
+select * from s1 where sal==600
+                           *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> select * from s1 where sal!=600;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+         2        601 active          200        801
+         3        701 active          200        901
+
+SQL> select * from s1 where sal<>600;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+         2        601 active          200        801
+         3        701 active          200        901
+
+SQL> select * from s1 where id=1 and sal=501;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+
+SQL> select * from s1 where id=1 or sal=501;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+
+SQL> select * from s1 where id=1 and sal=500;
+
+no rows selected
+
+SQL> select * from s1 where id=1 or sal=500;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+
+SQL> select * from s1 where id=11 or sal=500;
+
+no rows selected
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S2 Kiran                Processor                   8000 Delhi
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+
+SQL> insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,city);
+Enter value for sup_no: 'S3'
+Enter value for sup_name: 'Mohan'
+Enter value for iteam_supplied: 'Mouse'
+Enter value for iteam_price: 350
+old   1: insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,city)
+new   1: insert into supplier values('S3','Mohan','Mouse',350,city)
+insert into supplier values('S3','Mohan','Mouse',350,city)
+                                                     *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> /
+Enter value for sup_no: 'S3'
+Enter value for sup_name: 'Mohan'
+Enter value for iteam_supplied: 'Mouse'
+Enter value for iteam_price: 350
+old   1: insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,city)
+new   1: insert into supplier values('S3','Mohan','Mouse',350,city)
+insert into supplier values('S3','Mohan','Mouse',350,city)
+                                                     *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,&city);
+Enter value for sup_no: 'S3'
+Enter value for sup_name: 'Mohan'
+Enter value for iteam_supplied: 'Mouse'
+Enter value for iteam_price: 350
+Enter value for city: 'Delhi'
+old   1: insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,&city)
+new   1: insert into supplier values('S3','Mohan','Mouse',350,'Delhi')
+
+1 row created.
+
+SQL> /
+Enter value for sup_no: 'S4'
+Enter value for sup_name: 'Ramesh'
+Enter value for iteam_supplied: 'Processor'
+Enter value for iteam_price: 9000
+Enter value for city: 'Bangalore'
+old   1: insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,&city)
+new   1: insert into supplier values('S4','Ramesh','Processor',9000,'Bangalore')
+
+1 row created.
+
+SQL> /
+Enter value for sup_no: 'S5'
+Enter value for sup_name: 'Manish'
+Enter value for iteam_supplied: 'Printer'
+Enter value for iteam_price: 6000
+Enter value for city: 'Mumbai'
+old   1: insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,&city)
+new   1: insert into supplier values('S5','Manish','Printer',6000,'Mumbai')
+
+1 row created.
+
+SQL> /
+Enter value for sup_no: 'S6'
+Enter value for sup_name: 'Srikanth'
+Enter value for iteam_supplied: 'Processor'
+Enter value for iteam_price: 8500
+Enter value for city: 'Chennai'
+old   1: insert into supplier values(&sup_no,&sup_name,&iteam_supplied,&iteam_price,&city)
+new   1: insert into supplier values('S6','Srikanth','Processor',8500,'Chennai')
+
+1 row created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> select * from supplier where sup_name like 'M%';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+
+SQL> select * from supplier where sup_name like 'm%';
+
+no rows selected
+
+SQL> select * from supplier where sup_name like '%h';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from supplier where sup_name like '%sh';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S5 Manish               Printer                     6000 Mumbai
+
+SQL> select * from supplier where sup_name like '%esh';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+
+SQL> select * from supplier where sup_name like '%esh%';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+
+SQL> select * from supplier where sup_name like '%h%';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from supplier where sup_name like '%h';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from supplier where sup_name like '%ah';
+
+no rows selected
+
+SQL> select * from supplier where sup_name like '%ah%';
+
+no rows selected
+
+SQL> select * from supplier where sup_name like '_a%';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S5 Manish               Printer                     6000 Mumbai
+
+SQL> select * from supplier where sup_name like '_-a%';
+
+no rows selected
+
+SQL> select * from supplier where sup_name like '__a%';
+
+no rows selected
+
+SQL> select * from supplier where sup_name like '___a%';
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> select * from supplier where iteam_price between 5000 and 9000;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from supplier where iteam_price in(5000,9000);
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+
+SQL> select * from supplier where iteam_price in(5000,8000,9000);
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+
+SQL> SELECT sup_name FROM supplier WHERE EXISTS (SELECT sup_name FROM supplier WHERE iteam_price < 500);
+
+SUP_NAME
+--------------------
+Suresh
+Ramesh
+Kiran
+Mohan
+Manish
+Srikanth
+
+6 rows selected.
+
+SQL> SELECT sup_name FROM supplier WHERE iteam_price < 500;
+
+SUP_NAME
+--------------------
+Suresh
+Mohan
+
+SQL> SELECT sup_name,iteam_price FROM supplier WHERE iteam_price < 500;
+
+SUP_NAME             ITEAM_PRICE
+-------------------- -----------
+Suresh                       400
+Mohan                        350
+
+SQL> SELECT sup_name,iteam_price FROM supplier WHERE iteam_price < 100;
+
+no rows selected
+
+SQL> SELECT sup_name FROM supplier WHERE EXISTS (SELECT sup_name FROM supplier WHERE iteam_price < 100);
+
+no rows selected
+
+SQL> SELECT sup_name FROM supplier WHERE EXISTS (SELECT sup_name FROM supplier WHERE iteam_price < 50000);
+
+SUP_NAME
+--------------------
+Suresh
+Ramesh
+Kiran
+Mohan
+Manish
+Srikanth
+
+6 rows selected.
+
+SQL> SELECT sup_name,iteam_price FROM supplier WHERE iteam_price < 50000;
+
+SUP_NAME             ITEAM_PRICE
+-------------------- -----------
+Suresh                       400
+Ramesh                      9000
+Kiran                       8000
+Mohan                        350
+Manish                      6000
+Srikanth                    8500
+
+6 rows selected.
+
+SQL> SELECT sup_name FROM supplier WHERE iteam_price > all (SELECT sup_name FROM supplier WHERE iteam_price < 500)
+  2  ;
+SELECT sup_name FROM supplier WHERE iteam_price > all (SELECT sup_name FROM supplier WHERE iteam_price < 500)
+                                                              *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+ QL> SELECT sup_name FROM supplier WHERE iteam_price > all (SELECT iteam_price FROM supplier WHERE iteam_price < 500)
+  2  ;
+
+SUP_NAME
+--------------------
+Manish
+Kiran
+Srikanth
+Ramesh
+
+SQL> SELECT iteam_price FROM supplier WHERE iteam_price < 500;
+
+ITEAM_PRICE
+-----------
+        400
+        350
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> SELECT sup_name FROM supplier WHERE iteam_price > any (SELECT iteam_price FROM supplier WHERE iteam_price < 500);
+
+SUP_NAME
+--------------------
+Suresh
+Ramesh
+Kiran
+Manish
+Srikanth

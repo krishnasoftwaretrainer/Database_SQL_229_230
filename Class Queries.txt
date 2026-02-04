@@ -1983,3 +1983,719 @@ Ramesh
 Kiran
 Manish
 Srikanth
+=====================
+04-02-2026
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed Feb 4 10:09:33 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from supplier order by sup_name;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S3 Mohan                Mouse                        350 Delhi
+S4 Ramesh               Processor                   9000 Bangalore
+S6 Srikanth             Processor                   8500 Chennai
+S1 Suresh               Keyboard                     400 Hyderabad
+
+6 rows selected.
+
+SQL> select * from supplier order by sup_name asc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S3 Mohan                Mouse                        350 Delhi
+S4 Ramesh               Processor                   9000 Bangalore
+S6 Srikanth             Processor                   8500 Chennai
+S1 Suresh               Keyboard                     400 Hyderabad
+
+6 rows selected.
+
+SQL> select * from supplier order by sup_name desc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S6 Srikanth             Processor                   8500 Chennai
+S4 Ramesh               Processor                   9000 Bangalore
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S2 Kiran                Processor                   8000 Delhi
+
+6 rows selected.
+
+SQL> select * from supplier order by iteam_price asc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S3 Mohan                Mouse                        350 Delhi
+S1 Suresh               Keyboard                     400 Hyderabad
+S5 Manish               Printer                     6000 Mumbai
+S2 Kiran                Processor                   8000 Delhi
+S6 Srikanth             Processor                   8500 Chennai
+S4 Ramesh               Processor                   9000 Bangalore
+
+6 rows selected.
+
+SQL> select * from supplier order by iteam_price desc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S6 Srikanth             Processor                   8500 Chennai
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S1 Suresh               Keyboard                     400 Hyderabad
+S3 Mohan                Mouse                        350 Delhi
+
+6 rows selected.
+
+SQL> select * from supplier order by iteam_price,city desc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S3 Mohan                Mouse                        350 Delhi
+S1 Suresh               Keyboard                     400 Hyderabad
+S5 Manish               Printer                     6000 Mumbai
+S2 Kiran                Processor                   8000 Delhi
+S6 Srikanth             Processor                   8500 Chennai
+S4 Ramesh               Processor                   9000 Bangalore
+
+6 rows selected.
+
+SQL> select * from supplier order by city desc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S5 Manish               Printer                     6000 Mumbai
+S1 Suresh               Keyboard                     400 Hyderabad
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S6 Srikanth             Processor                   8500 Chennai
+S4 Ramesh               Processor                   9000 Bangalore
+
+6 rows selected.
+
+SQL> select * from supplier order by city asc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S6 Srikanth             Processor                   8500 Chennai
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S1 Suresh               Keyboard                     400 Hyderabad
+S5 Manish               Printer                     6000 Mumbai
+
+6 rows selected.
+
+SQL> select * from supplier where iteam_price >=6000 order by city asc;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S6 Srikanth             Processor                   8500 Chennai
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+
+SQL>
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> select * from dual;
+
+D
+-
+X
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+04-FEB-26
+
+SQL> select sysdate from supplier;
+
+SYSDATE
+---------
+04-FEB-26
+04-FEB-26
+04-FEB-26
+04-FEB-26
+04-FEB-26
+04-FEB-26
+
+6 rows selected.
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+04-FEB-26
+
+SQL> select systimestamp from dual;
+
+SYSTIMESTAMP
+---------------------------------------------------------------------------
+04-FEB-26 10.26.32.440000 AM +05:30
+
+SQL> select current_timestamp from dual;
+
+CURRENT_TIMESTAMP
+---------------------------------------------------------------------------
+04-FEB-26 10.27.43.174000 AM +05:30
+
+SQL> select avg(30+20+10)/3 from dual;
+
+AVG(30+20+10)/3
+---------------
+             20
+
+SQL> select avg(iteam_price) from supplier;
+
+AVG(ITEAM_PRICE)
+----------------
+            5375
+
+SQL> select sum(iteam_price) from supplier;
+
+SUM(ITEAM_PRICE)
+----------------
+           32250
+
+SQL> select max(iteam_price) from supplier;
+
+MAX(ITEAM_PRICE)
+----------------
+            9000
+
+SQL> select min(iteam_price) from supplier;
+
+MIN(ITEAM_PRICE)
+----------------
+             350
+
+SQL> select count(*) from supplier;
+
+  COUNT(*)
+----------
+         6
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+
+SQL> select * from stu1
+  2  ;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> select * from s1;
+
+        ID        SAL EMPSTATU         DA   TOTALSAL
+---------- ---------- -------- ---------- ----------
+         1        501 active          200        701
+         2        601 active          200        801
+         3        701 active          200        901
+         4            active          200
+
+SQL> select count(*) from stu1
+  2  ;
+
+  COUNT(*)
+----------
+         6
+
+SQL> select count(*) from s1;
+
+  COUNT(*)
+----------
+         4
+
+SQL> select count(sal) from s1;
+
+COUNT(SAL)
+----------
+         3
+
+SQL> select count(da) from s1;
+
+ COUNT(DA)
+----------
+         4
+
+SQL> select count(distinct da) from s1;
+
+COUNT(DISTINCTDA)
+-----------------
+                1
+
+SQL> select count(distinct iteam_supplied) from s1;
+select count(distinct iteam_supplied) from s1
+                      *
+ERROR at line 1:
+ORA-00904: "ITEAM_SUPPLIED": invalid identifier
+
+
+SQL> select count(distinct iteam_supplied) from supplier;
+select count(distinct iteam_supplied) from supplier
+                      *
+ERROR at line 1:
+ORA-00904: "ITEAM_SUPPLIED": invalid identifier
+
+
+SQL> select count(distinct item_supplied) from supplier;
+
+COUNT(DISTINCTITEM_SUPPLIED)
+----------------------------
+                           4
+
+SQL> select count(item_supplied) from supplier;
+
+COUNT(ITEM_SUPPLIED)
+--------------------
+                   6
+
+SQL>
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> select upper(sup_name) from supplier;
+
+UPPER(SUP_NAME)
+--------------------
+SURESH
+RAMESH
+KIRAN
+MOHAN
+MANISH
+SRIKANTH
+
+6 rows selected.
+
+SQL> select lower(sup_name) from supplier;
+
+LOWER(SUP_NAME)
+--------------------
+suresh
+ramesh
+kiran
+mohan
+manish
+srikanth
+
+6 rows selected.
+
+SQL> select lower(sup_name,item_supplied) from supplier;
+select lower(sup_name,item_supplied) from supplier
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments
+
+
+SQL> select lower(item_supplied) from supplier;
+
+LOWER(ITEM_SUPPLIED)
+--------------------
+keyboard
+processor
+processor
+mouse
+printer
+processor
+
+6 rows selected.
+
+SQL> select initcap(item_supplied) from supplier;
+
+INITCAP(ITEM_SUPPLIE
+--------------------
+Keyboard
+Processor
+Processor
+Mouse
+Printer
+Processor
+
+6 rows selected.
+
+SQL> select length(item_supplied) from supplier;
+
+LENGTH(ITEM_SUPPLIED)
+---------------------
+                    8
+                    9
+                    9
+                    5
+                    7
+                    9
+
+6 rows selected.
+
+SQL> select length('Krishna') from dual;
+
+LENGTH('KRISHNA')
+-----------------
+                7
+
+SQL> select length('abcd') from dual;
+
+LENGTH('ABCD')
+--------------
+             4
+
+SQL> select length('12345') from dual;
+
+LENGTH('12345')
+---------------
+              5
+
+SQL> SELECT REPLACE('Hello World', 'Hello', 'Hi') AS Result FROM dual;
+
+RESULT
+--------
+Hi World
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> SELECT REPLACE('Suresh', 'Su', 'Ka') from supplier;
+
+REPLAC
+------
+Karesh
+Karesh
+Karesh
+Karesh
+Karesh
+Karesh
+
+6 rows selected.
+
+SQL> SELECT REPLACE('Suresh', 'Su', 'Ka') from dual;
+
+REPLAC
+------
+Karesh
+
+SQL> select LPAD('oracle',10,'z') from dual;
+
+LPAD('ORAC
+----------
+zzzzoracle
+
+SQL> select RPAD('oracle',10,'z') from dual;
+
+RPAD('ORAC
+----------
+oraclezzzz
+
+SQL> select RPAD('oracle',6,'z') from dual;
+
+RPAD('
+------
+oracle
+
+SQL> select RPAD('oracle',20,'z') from dual;
+
+RPAD('ORACLE',20,'Z'
+--------------------
+oraclezzzzzzzzzzzzzz
+
+SQL> select LPAD('Krishna',9,'MR.') from dual;
+
+LPAD('KRI
+---------
+MRKrishna
+
+SQL> select LPAD('Krishna',10,'MR.') from dual;
+
+LPAD('KRIS
+----------
+MR.Krishna
+
+SQL> SELECT LTRIM(' Hello World') AS trimmed_string FROM dual;
+
+TRIMMED_STR
+-----------
+Hello World
+
+SQL> SELECT LTRIM(' Hello World  ') AS trimmed_string FROM dual;
+
+TRIMMED_STRIN
+-------------
+Hello World
+
+SQL> SELECT LTRIM(' Hello   World  ') AS trimmed_string FROM dual;
+
+TRIMMED_STRING
+---------------
+Hello   World
+
+SQL> SELECT RTRIM(' Hello   World  ') AS trimmed_string FROM dual;
+
+TRIMMED_STRING
+--------------
+ Hello   World
+
+SQL> SELECT TRIM(' Hello World  ') AS trimmed_string FROM dual;
+
+TRIMMED_STR
+-----------
+Hello World
+
+SQL> SELECT INSTR('Hello World', 'Wo') AS position FROM dual;
+
+  POSITION
+----------
+         7
+
+SQL> SELECT INSTR('Hello World', 'e') AS position FROM dual;
+
+  POSITION
+----------
+         2
+
+SQL> Select SUBSTR(‘ORACLE’,2,3) from dual;
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> Select SUBSTR('ORACLE',2,3) from dual;
+
+SUB
+---
+RAC
+
+SQL> Select SUBSTR('ORACLE',5,3) from dual;
+
+SU
+--
+LE
+
+SQL> SELECT CONCAT('Hello', 'World') AS concatenated_string FROM dual;
+
+CONCATENAT
+----------
+HelloWorld
+
+SQL> SELECT CONCAT('Hello', 'World') FROM dual;
+
+CONCAT('HE
+----------
+HelloWorld
+
+SQL> select 55+25 from dual;
+
+     55+25
+----------
+        80
+
+SQL> select 55+25 as sum from dual;
+
+       SUM
+----------
+        80
+
+SQL> SELECT TRANSLATE(sup_name, 'ae', '12') FROM s1;
+SELECT TRANSLATE(sup_name, 'ae', '12') FROM s1
+                 *
+ERROR at line 1:
+ORA-00904: "SUP_NAME": invalid identifier
+
+
+SQL> SELECT TRANSLATE(supname, 'ae', '12') FROM s1;
+SELECT TRANSLATE(supname, 'ae', '12') FROM s1
+                 *
+ERROR at line 1:
+ORA-00904: "SUPNAME": invalid identifier
+
+
+SQL> SELECT TRANSLATE(sup_name, 'ae', '12') FROM supplier;
+
+TRANSLATE(SUP_NAME,'AE','12')
+--------------------------------------------------------------------------------
+Sur2sh
+R1m2sh
+Kir1n
+Moh1n
+M1nish
+Srik1nth
+
+6 rows selected.
+
+SQL> SELECT TRANSLATE('abcde', 'ace', '952') FROM supplier;
+
+TRANS
+-----
+9b5d2
+9b5d2
+9b5d2
+9b5d2
+9b5d2
+9b5d2
+
+6 rows selected.
+
+SQL> SELECT TRANSLATE('abcde', 'ace', '952') FROM dual;;
+SELECT TRANSLATE('abcde', 'ace', '952') FROM dual;
+                                                 *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> SELECT TRANSLATE('abcde', 'ace', '952') FROM dual;
+
+TRANS
+-----
+9b5d2
+
+SQL> SELECT TRANSLATE('abcde', 'ace', '95#') FROM dual;
+
+TRANS
+-----
+9b5d#
+
+SQL> SELECT TRANSLATE('abcde', 'ace', '9B#') FROM dual;
+
+TRANS
+-----
+9bBd#
+
+SQL> SELECT ASCII(A) FROM dual;
+SELECT ASCII(A) FROM dual
+             *
+ERROR at line 1:
+ORA-00904: "A": invalid identifier
+
+
+SQL> SELECT ASCII('A') FROM dual;
+
+ASCII('A')
+----------
+        65
+
+SQL> SELECT ASCII('ABCD') FROM dual;
+
+ASCII('ABCD')
+-------------
+           65
+
+SQL> SELECT sup_name, ascii(sup_name) FROM supplier;
+
+SUP_NAME             ASCII(SUP_NAME)
+-------------------- ---------------
+Suresh                            83
+Ramesh                            82
+Kiran                             75
+Mohan                             77
+Manish                            77
+Srikanth                          83
+
+6 rows selected.
+
+SQL> SELECT ASCII('a') FROM dual;
+
+ASCII('A')
+----------
+        97
+
+SQL> SELECT ASCII('#') FROM dual;
+
+ASCII('#')
+----------
+        35
+
+SQL>

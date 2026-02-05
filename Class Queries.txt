@@ -2699,3 +2699,1567 @@ ASCII('#')
         35
 
 SQL>
+
+SQL*Plus: Release 11.2.0.2.0 Production on Thu Feb 5 10:12:59 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select abs(-120) from dual;
+
+ ABS(-120)
+----------
+       120
+
+SQL> select abs(-120) as Abs from dual;
+
+       ABS
+----------
+       120
+
+SQL> select abs(-12.358) as Abs from dual;
+
+       ABS
+----------
+    12.358
+
+SQL> select sqrt(25) from dual;
+
+  SQRT(25)
+----------
+         5
+
+SQL> select sqrt(49) from dual;
+
+  SQRT(49)
+----------
+         7
+
+SQL> select mod(10,3) from dual;
+
+ MOD(10,3)
+----------
+         1
+
+SQL> select mod(10,2) from dual;
+
+ MOD(10,2)
+----------
+         0
+
+SQL> select mod(10,6) from dual;
+
+ MOD(10,6)
+----------
+         4
+
+SQL> select 25/5 from dual;
+
+      25/5
+----------
+         5
+
+SQL> select 25/5 from as division dual;
+select 25/5 from as division dual
+                 *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> select 25/5 as division from dual;
+
+  DIVISION
+----------
+         5
+
+SQL> select 25%5 as division from dual;
+select 25%5 as division from dual
+         *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select mod(25,5) from dual;
+
+ MOD(25,5)
+----------
+         0
+
+SQL> select 10/6 as division from dual;
+
+  DIVISION
+----------
+1.66666667
+
+SQL> select mod(10,6) from dual;
+
+ MOD(10,6)
+----------
+         4
+
+SQL> select power(2,3) from dual;
+
+POWER(2,3)
+----------
+         8
+
+SQL> select power(2,5) from dual;
+
+POWER(2,5)
+----------
+        32
+
+SQL> select ceil(49.99) from dual;
+
+CEIL(49.99)
+-----------
+         50
+
+SQL> select ceil(49.19) from dual;
+
+CEIL(49.19)
+-----------
+         50
+
+SQL> select floor(49.99) from dual;
+
+FLOOR(49.99)
+------------
+          49
+
+SQL> select floor(49.19) from dual;
+
+FLOOR(49.19)
+------------
+          49
+
+SQL> select round(49.19) from dual;
+
+ROUND(49.19)
+------------
+          49
+
+SQL> select round(49.19) from dual;
+
+ROUND(49.19)
+------------
+          49
+
+SQL> select round(49.59) from dual;
+
+ROUND(49.59)
+------------
+          50
+
+SQL> select greatest(500,600,400) from dual;
+
+GREATEST(500,600,400)
+---------------------
+                  600
+
+SQL> select least(500,600,400) from dual;
+
+LEAST(500,600,400)
+------------------
+               400
+
+SQL> select sign(-10) from dual;
+
+ SIGN(-10)
+----------
+        -1
+
+SQL> select sign(10) from dual;
+
+  SIGN(10)
+----------
+         1
+
+SQL> select sign(0) from dual;
+
+   SIGN(0)
+----------
+         0
+
+SQL> Select ADD_MONTHS(SYSDATE,12) from dual;
+
+ADD_MONTH
+---------
+05-FEB-27
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+05-FEB-26
+
+SQL> select currentdate from dual;
+select currentdate from dual
+       *
+ERROR at line 1:
+ORA-00904: "CURRENTDATE": invalid identifier
+
+
+SQL> select current_date from dual;
+
+CURRENT_D
+---------
+05-FEB-26
+
+SQL> select timestamp from dual;
+select timestamp from dual
+       *
+ERROR at line 1:
+ORA-00904: "TIMESTAMP": invalid identifier
+
+
+SQL> select systimestamp from dual;
+
+SYSTIMESTAMP
+---------------------------------------------------------------------------
+05-FEB-26 10.31.37.783000 AM +05:30
+
+SQL> select current_timestamp from dual;
+
+CURRENT_TIMESTAMP
+---------------------------------------------------------------------------
+05-FEB-26 10.32.02.430000 AM +05:30
+
+SQL> Select ADD_MONTHS(SYSDATE,12) from dual;
+
+ADD_MONTH
+---------
+05-FEB-27
+
+SQL> Select ADD_MONTHS(SYSDATE,2) from dual;
+
+ADD_MONTH
+---------
+05-APR-26
+
+SQL> Select ADD_MONTHS('10-MAR-25',2) from dual;
+
+ADD_MONTH
+---------
+10-MAY-25
+
+SQL> Select MONTHS_BETWEEN('11-JAN-05','11-JAN-04') from dual;
+
+MONTHS_BETWEEN('11-JAN-05','11-JAN-04')
+---------------------------------------
+                                     12
+
+SQL> Select MONTHS_BETWEEN(sysdate,'11-JAN-04') from dual;
+
+MONTHS_BETWEEN(SYSDATE,'11-JAN-04')
+-----------------------------------
+                          264.82066
+
+SQL> Select NEXT_DAY(SYSDATE,'MONDAY') from dual;
+
+NEXT_DAY(
+---------
+09-FEB-26
+
+SQL> Select NEXT_DAY(SYSDATE,'friday') from dual;
+
+NEXT_DAY(
+---------
+06-FEB-26
+
+SQL> Select LAST_DAY(SYSDATE) from dual;
+
+LAST_DAY(
+---------
+28-FEB-26
+
+SQL> Select LAST_DAY('10-mar-26') from dual;
+
+LAST_DAY(
+---------
+31-MAR-26
+
+SQL> Select LAST_DAY('10-feb-25') from dual;
+
+LAST_DAY(
+---------
+28-FEB-25
+
+SQL> Select LAST_DAY('10-feb-24') from dual;
+
+LAST_DAY(
+---------
+29-FEB-24
+
+SQL> Select LAST_DAY('10-feb-23') from dual;
+
+LAST_DAY(
+---------
+28-FEB-23
+
+SQL> Select LAST_DAY('10-feb-22') from dual;
+
+LAST_DAY(
+---------
+28-FEB-22
+
+SQL> Select LAST_DAY('10-feb-21') from dual;
+
+LAST_DAY(
+---------
+28-FEB-21
+
+SQL> Select LAST_DAY('10-february-21') from dual;
+
+LAST_DAY(
+---------
+28-FEB-21
+
+SQL> Select LAST_DAY('10-21-february') from dual;
+Select LAST_DAY('10-21-february') from dual
+                *
+ERROR at line 1:
+ORA-01843: not a valid month
+
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+05-FEB-26
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM dual;
+
+TO_CHAR(SY
+----------
+2026-02-05
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY-DD-MM') FROM dual;
+
+TO_CHAR(SY
+----------
+2026-05-02
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YY-DD-MM') FROM dual;
+
+TO_CHAR(
+--------
+26-05-02
+
+SQL> SELECT TO_CHAR(SYSDATE, 'YYYY') FROM dual;
+
+TO_C
+----
+2026
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DD') FROM dual;
+
+TO
+--
+05
+
+SQL> SELECT TO_CHAR(SYSDATE, 'Day: MONTH DD, YYYY') FROM dual;
+
+TO_CHAR(SYSDATE,'DAY:MONTHDD,YYYY')
+--------------------------------------------------------------------------------
+Thursday : FEBRUARY  05, 2026
+
+SQL>
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from supplier where iteam_price>=6000;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> create view supv1 as select * from supplier where iteam_price>=6000;
+
+View created.
+
+SQL> select * from supv1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+SUPV1                          VIEW
+
+6 rows selected.
+
+SQL> create table suptab1 as select * from supplier where iteam_price>=6000;
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+SUPV1                          VIEW
+
+7 rows selected.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from supplier where iteam_price>=6000;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> create view supv1 as select * from supplier where iteam_price>=6000;
+
+View created.
+
+SQL> select * from supv1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+SUPV1                          VIEW
+
+6 rows selected.
+
+SQL> create table suptab1 as select * from supplier where iteam_price>=6000;
+
+Table created.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+SUPV1                          VIEW
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into supplier values('D','dffd','dsss',564,'dsds');
+
+1 row created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> select * from supv1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from supv1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from suptab1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> create view supv2 as select * from supplier;
+
+View created.
+
+SQL> select * from supv2;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> insert into supplier values('D','dffd','dsss',6500,'dsds');
+insert into supplier values('D','dffd','dsss',6500,'dsds')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (QTM230.SYS_C007171) violated
+
+
+SQL> insert into supplier values('L','dffd','dsss',6500,'dsds');
+
+1 row created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+L  dffd                 dsss                        6500 dsds
+
+8 rows selected.
+
+SQL> select * from supv1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+L  dffd                 dsss                        6500 dsds
+
+SQL> select * from supv2;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+L  dffd                 dsss                        6500 dsds
+
+8 rows selected.
+
+SQL> select * from suptab1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> delete supv1 where iteam_price=6500;
+
+1 row deleted.
+
+SQL> select * from supv1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> select * from suptab1;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+SUPV1                          VIEW
+SUPV2                          VIEW
+
+8 rows selected.
+
+SQL> drop view supv2;
+
+View dropped.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+SUPV1                          VIEW
+
+7 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> create view stusup1 as select stu1.stuid,stu1.sname,stu1.marks,supplier.sup_id,supplier.sup_name,supplier.iteam_supplied from stu1,supplier;
+create view stusup1 as select stu1.stuid,stu1.sname,stu1.marks,supplier.sup_id,supplier.sup_name,supplier.iteam_supplied from stu1,supplier
+                                                                                                 *
+ERROR at line 1:
+ORA-00904: "SUPPLIER"."ITEAM_SUPPLIED": invalid identifier
+
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+
+SQL> create view stusup1 as select stu1.stuid,stu1.sname,stu1.marks,supplier.sup_no,supplier.sup_name,supplier.iteam_supplied from stu1,supplier;
+create view stusup1 as select stu1.stuid,stu1.sname,stu1.marks,supplier.sup_no,supplier.sup_name,supplier.iteam_supplied from stu1,supplier
+                                                                                                 *
+ERROR at line 1:
+ORA-00904: "SUPPLIER"."ITEAM_SUPPLIED": invalid identifier
+
+     create view stusup1 as select stu1.stuid,stu1.sname,stu1.marks,supplier.sup_no,supplier.sup_name,supplier.item_supplied from stu1,supplier;
+
+View created.
+
+SQL> desc stusup1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+S1                             TABLE
+STU1                           TABLE
+STUSUP1                        VIEW
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+SUPV1                          VIEW
+
+8 rows selected.
+
+SQL> select * from stusup1;
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1001 Krishna                     999 S1 Suresh
+Keyboard
+
+      1001 Krishna                     999 S4 Ramesh
+Processor
+
+      1001 Krishna                     999 S2 Kiran
+Processor
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1001 Krishna                     999 S3 Mohan
+Mouse
+
+      1001 Krishna                     999 S5 Manish
+Printer
+
+      1001 Krishna                     999 S6 Srikanth
+Processor
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1001 Krishna                     999 D  dffd
+dsss
+
+      1002 Ramesh                      899 S1 Suresh
+Keyboard
+
+      1002 Ramesh                      899 S4 Ramesh
+Processor
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1002 Ramesh                      899 S2 Kiran
+Processor
+
+      1002 Ramesh                      899 S3 Mohan
+Mouse
+
+      1002 Ramesh                      899 S5 Manish
+Printer
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1002 Ramesh                      899 S6 Srikanth
+Processor
+
+      1002 Ramesh                      899 D  dffd
+dsss
+
+      1003 Suresh                      799 S1 Suresh
+Keyboard
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1003 Suresh                      799 S4 Ramesh
+Processor
+
+      1003 Suresh                      799 S2 Kiran
+Processor
+
+      1003 Suresh                      799 S3 Mohan
+Mouse
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1003 Suresh                      799 S5 Manish
+Printer
+
+      1003 Suresh                      799 S6 Srikanth
+Processor
+
+      1003 Suresh                      799 D  dffd
+dsss
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1004 Mahesh                      699 S1 Suresh
+Keyboard
+
+      1004 Mahesh                      699 S4 Ramesh
+Processor
+
+      1004 Mahesh                      699 S2 Kiran
+Processor
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1004 Mahesh                      699 S3 Mohan
+Mouse
+
+      1004 Mahesh                      699 S5 Manish
+Printer
+
+      1004 Mahesh                      699 S6 Srikanth
+Processor
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1004 Mahesh                      699 D  dffd
+dsss
+
+      1005 Ganesh                      599 S1 Suresh
+Keyboard
+
+      1005 Ganesh                      599 S4 Ramesh
+Processor
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1005 Ganesh                      599 S2 Kiran
+Processor
+
+      1005 Ganesh                      599 S3 Mohan
+Mouse
+
+      1005 Ganesh                      599 S5 Manish
+Printer
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1005 Ganesh                      599 S6 Srikanth
+Processor
+
+      1005 Ganesh                      599 D  dffd
+dsss
+
+      1006 Rajesh                      499 S1 Suresh
+Keyboard
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1006 Rajesh                      499 S4 Ramesh
+Processor
+
+      1006 Rajesh                      499 S2 Kiran
+Processor
+
+      1006 Rajesh                      499 S3 Mohan
+Mouse
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1006 Rajesh                      499 S5 Manish
+Printer
+
+      1006 Rajesh                      499 S6 Srikanth
+Processor
+
+      1006 Rajesh                      499 D  dffd
+dsss
+
+
+42 rows selected.
+
+SQL>
+SQL> show line size;
+linesize 80
+SP2-0158: unknown SHOW option "size"
+SQL> show linesize;
+linesize 80
+SQL> show pagesize;
+pagesize 14
+SQL> set pagesize 25;
+SQL> select * from stusup1;
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1001 Krishna                     999 S1 Suresh
+Keyboard
+
+      1001 Krishna                     999 S4 Ramesh
+Processor
+
+      1001 Krishna                     999 S2 Kiran
+Processor
+
+      1001 Krishna                     999 S3 Mohan
+Mouse
+
+      1001 Krishna                     999 S5 Manish
+Printer
+
+      1001 Krishna                     999 S6 Srikanth
+Processor
+
+      1001 Krishna                     999 D  dffd
+dsss
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+
+      1002 Ramesh                      899 S1 Suresh
+Keyboard
+
+      1002 Ramesh                      899 S4 Ramesh
+Processor
+
+      1002 Ramesh                      899 S2 Kiran
+Processor
+
+      1002 Ramesh                      899 S3 Mohan
+Mouse
+
+      1002 Ramesh                      899 S5 Manish
+Printer
+
+      1002 Ramesh                      899 S6 Srikanth
+Processor
+
+      1002 Ramesh                      899 D  dffd
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+dsss
+
+      1003 Suresh                      799 S1 Suresh
+Keyboard
+
+      1003 Suresh                      799 S4 Ramesh
+Processor
+
+      1003 Suresh                      799 S2 Kiran
+Processor
+
+      1003 Suresh                      799 S3 Mohan
+Mouse
+
+      1003 Suresh                      799 S5 Manish
+Printer
+
+      1003 Suresh                      799 S6 Srikanth
+Processor
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1003 Suresh                      799 D  dffd
+dsss
+
+      1004 Mahesh                      699 S1 Suresh
+Keyboard
+
+      1004 Mahesh                      699 S4 Ramesh
+Processor
+
+      1004 Mahesh                      699 S2 Kiran
+Processor
+
+      1004 Mahesh                      699 S3 Mohan
+Mouse
+
+      1004 Mahesh                      699 S5 Manish
+Printer
+
+      1004 Mahesh                      699 S6 Srikanth
+Processor
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+
+      1004 Mahesh                      699 D  dffd
+dsss
+
+      1005 Ganesh                      599 S1 Suresh
+Keyboard
+
+      1005 Ganesh                      599 S4 Ramesh
+Processor
+
+      1005 Ganesh                      599 S2 Kiran
+Processor
+
+      1005 Ganesh                      599 S3 Mohan
+Mouse
+
+      1005 Ganesh                      599 S5 Manish
+Printer
+
+      1005 Ganesh                      599 S6 Srikanth
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+Processor
+
+      1005 Ganesh                      599 D  dffd
+dsss
+
+      1006 Rajesh                      499 S1 Suresh
+Keyboard
+
+      1006 Rajesh                      499 S4 Ramesh
+Processor
+
+      1006 Rajesh                      499 S2 Kiran
+Processor
+
+      1006 Rajesh                      499 S3 Mohan
+Mouse
+
+      1006 Rajesh                      499 S5 Manish
+Printer
+
+
+     STUID SNAME                     MARKS SU SUP_NAME
+---------- -------------------- ---------- -- --------------------
+ITEM_SUPPLIED
+--------------------
+      1006 Rajesh                      499 S6 Srikanth
+Processor
+
+      1006 Rajesh                      499 D  dffd
+dsss
+
+
+42 rows selected.
+
+SQL> set linesize 200;
+SQL> select * from stusup1;
+
+     STUID SNAME                     MARKS SU SUP_NAME             ITEM_SUPPLIED
+---------- -------------------- ---------- -- -------------------- --------------------
+      1001 Krishna                     999 S1 Suresh               Keyboard
+      1001 Krishna                     999 S4 Ramesh               Processor
+      1001 Krishna                     999 S2 Kiran                Processor
+      1001 Krishna                     999 S3 Mohan                Mouse
+      1001 Krishna                     999 S5 Manish               Printer
+      1001 Krishna                     999 S6 Srikanth             Processor
+      1001 Krishna                     999 D  dffd                 dsss
+      1002 Ramesh                      899 S1 Suresh               Keyboard
+      1002 Ramesh                      899 S4 Ramesh               Processor
+      1002 Ramesh                      899 S2 Kiran                Processor
+      1002 Ramesh                      899 S3 Mohan                Mouse
+      1002 Ramesh                      899 S5 Manish               Printer
+      1002 Ramesh                      899 S6 Srikanth             Processor
+      1002 Ramesh                      899 D  dffd                 dsss
+      1003 Suresh                      799 S1 Suresh               Keyboard
+      1003 Suresh                      799 S4 Ramesh               Processor
+      1003 Suresh                      799 S2 Kiran                Processor
+      1003 Suresh                      799 S3 Mohan                Mouse
+      1003 Suresh                      799 S5 Manish               Printer
+      1003 Suresh                      799 S6 Srikanth             Processor
+      1003 Suresh                      799 D  dffd                 dsss
+      1004 Mahesh                      699 S1 Suresh               Keyboard
+
+     STUID SNAME                     MARKS SU SUP_NAME             ITEM_SUPPLIED
+---------- -------------------- ---------- -- -------------------- --------------------
+      1004 Mahesh                      699 S4 Ramesh               Processor
+      1004 Mahesh                      699 S2 Kiran                Processor
+      1004 Mahesh                      699 S3 Mohan                Mouse
+      1004 Mahesh                      699 S5 Manish               Printer
+      1004 Mahesh                      699 S6 Srikanth             Processor
+      1004 Mahesh                      699 D  dffd                 dsss
+      1005 Ganesh                      599 S1 Suresh               Keyboard
+      1005 Ganesh                      599 S4 Ramesh               Processor
+      1005 Ganesh                      599 S2 Kiran                Processor
+      1005 Ganesh                      599 S3 Mohan                Mouse
+      1005 Ganesh                      599 S5 Manish               Printer
+      1005 Ganesh                      599 S6 Srikanth             Processor
+      1005 Ganesh                      599 D  dffd                 dsss
+      1006 Rajesh                      499 S1 Suresh               Keyboard
+      1006 Rajesh                      499 S4 Ramesh               Processor
+      1006 Rajesh                      499 S2 Kiran                Processor
+      1006 Rajesh                      499 S3 Mohan                Mouse
+      1006 Rajesh                      499 S5 Manish               Printer
+      1006 Rajesh                      499 S6 Srikanth             Processor
+      1006 Rajesh                      499 D  dffd                 dsss
+
+42 rows selected.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> desc stusup1 order by sup_no;
+Usage: DESCRIBE [schema.]object[@db_link]
+SQL> select * from stusup1 order by sup_no;
+
+     STUID SNAME                     MARKS SU SUP_NAME             ITEM_SUPPLIED
+---------- -------------------- ---------- -- -------------------- --------------------
+      1001 Krishna                     999 D  dffd                 dsss
+      1002 Ramesh                      899 D  dffd                 dsss
+      1003 Suresh                      799 D  dffd                 dsss
+      1004 Mahesh                      699 D  dffd                 dsss
+      1005 Ganesh                      599 D  dffd                 dsss
+      1006 Rajesh                      499 D  dffd                 dsss
+      1001 Krishna                     999 S1 Suresh               Keyboard
+      1002 Ramesh                      899 S1 Suresh               Keyboard
+      1003 Suresh                      799 S1 Suresh               Keyboard
+      1004 Mahesh                      699 S1 Suresh               Keyboard
+      1005 Ganesh                      599 S1 Suresh               Keyboard
+      1006 Rajesh                      499 S1 Suresh               Keyboard
+      1001 Krishna                     999 S2 Kiran                Processor
+      1002 Ramesh                      899 S2 Kiran                Processor
+      1003 Suresh                      799 S2 Kiran                Processor
+      1004 Mahesh                      699 S2 Kiran                Processor
+      1005 Ganesh                      599 S2 Kiran                Processor
+      1006 Rajesh                      499 S2 Kiran                Processor
+      1001 Krishna                     999 S3 Mohan                Mouse
+      1002 Ramesh                      899 S3 Mohan                Mouse
+      1003 Suresh                      799 S3 Mohan                Mouse
+      1004 Mahesh                      699 S3 Mohan                Mouse
+
+     STUID SNAME                     MARKS SU SUP_NAME             ITEM_SUPPLIED
+---------- -------------------- ---------- -- -------------------- --------------------
+      1005 Ganesh                      599 S3 Mohan                Mouse
+      1006 Rajesh                      499 S3 Mohan                Mouse
+      1001 Krishna                     999 S4 Ramesh               Processor
+      1002 Ramesh                      899 S4 Ramesh               Processor
+      1003 Suresh                      799 S4 Ramesh               Processor
+      1004 Mahesh                      699 S4 Ramesh               Processor
+      1005 Ganesh                      599 S4 Ramesh               Processor
+      1006 Rajesh                      499 S4 Ramesh               Processor
+      1001 Krishna                     999 S5 Manish               Printer
+      1002 Ramesh                      899 S5 Manish               Printer
+      1003 Suresh                      799 S5 Manish               Printer
+      1004 Mahesh                      699 S5 Manish               Printer
+      1005 Ganesh                      599 S5 Manish               Printer
+      1006 Rajesh                      499 S5 Manish               Printer
+      1001 Krishna                     999 S6 Srikanth             Processor
+      1002 Ramesh                      899 S6 Srikanth             Processor
+      1003 Suresh                      799 S6 Srikanth             Processor
+      1004 Mahesh                      699 S6 Srikanth             Processor
+      1005 Ganesh                      599 S6 Srikanth             Processor
+      1006 Rajesh                      499 S6 Srikanth             Processor
+
+42 rows selected.
+
+SQL> Create view sup5 As select sup_no,sup_name,city from supplier with read only;
+
+View created.
+
+SQL> select * from sup5 order by sup_no;
+
+SU SUP_NAME             CITY
+-- -------------------- --------------------
+D  dffd                 dsds
+S1 Suresh               Hyderabad
+S2 Kiran                Delhi
+S3 Mohan                Delhi
+S4 Ramesh               Bangalore
+S5 Manish               Mumbai
+S6 Srikanth             Chennai
+
+7 rows selected.
+
+SQL> insert into sup5 values('k','dgg','tty');
+insert into sup5 values('k','dgg','tty')
+*
+ERROR at line 1:
+ORA-42399: cannot perform a DML operation on a read-only view
+
+
+SQL> CREATE VIEW sup6 AS SELECT sup_no, sup_name,iteam_supplied FROM supplier WHERE iteam_price > 5000 WITH CHECK OPTION;
+CREATE VIEW sup6 AS SELECT sup_no, sup_name,iteam_supplied FROM supplier WHERE iteam_price > 5000 WITH CHECK OPTION
+                                            *
+ERROR at line 1:
+ORA-00904: "ITEAM_SUPPLIED": invalid identifier
+
+
+SQL> CREATE VIEW sup6 AS SELECT sup_no, sup_name,item_supplied FROM supplier WHERE item_price > 5000 WITH CHECK OPTION;
+CREATE VIEW sup6 AS SELECT sup_no, sup_name,item_supplied FROM supplier WHERE item_price > 5000 WITH CHECK OPTION
+                                                                              *
+ERROR at line 1:
+ORA-00904: "ITEM_PRICE": invalid identifier
+
+
+SQL> CREATE VIEW sup6 AS SELECT sup_no, sup_name,item_supplied FROM supplier WHERE iteam_price > 5000 WITH CHECK OPTION;
+
+View created.
+
+SQL> select * from sup6;
+
+SU SUP_NAME             ITEM_SUPPLIED
+-- -------------------- --------------------
+S4 Ramesh               Processor
+S2 Kiran                Processor
+S5 Manish               Printer
+S6 Srikanth             Processor
+
+SQL> insert into sup5 values('k','dgg',4000);
+insert into sup5 values('k','dgg',4000)
+*
+ERROR at line 1:
+ORA-42399: cannot perform a DML operation on a read-only view
+
+
+SQL> insert into sup6 values('k','dgg',4000);
+insert into sup6 values('k','dgg',4000)
+            *
+ERROR at line 1:
+ORA-01402: view WITH CHECK OPTION where-clause violation
+
+
+SQL> insert into sup5 values('k','dgg',9000);
+insert into sup5 values('k','dgg',9000)
+*
+ERROR at line 1:
+ORA-42399: cannot perform a DML operation on a read-only view
+
+
+SQL> insert into sup6 values('k','dgg',9000);
+insert into sup6 values('k','dgg',9000)
+            *
+ERROR at line 1:
+ORA-01402: view WITH CHECK OPTION where-clause violation
+
+
+SQL> insert into sup6 values('k','dgg',6000);
+insert into sup6 values('k','dgg',6000)
+            *
+ERROR at line 1:
+ORA-01402: view WITH CHECK OPTION where-clause violation
+
+
+SQL> CREATE VIEW sup7 AS SELECT sup_no, sup_name,item_supplied,iteam_price FROM supplier WHERE iteam_price > 500 WITH CHECK OPTION;
+
+View created.
+
+SQL> select * from sup7;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE
+-- -------------------- -------------------- -----------
+S4 Ramesh               Processor                   9000
+S2 Kiran                Processor                   8000
+S5 Manish               Printer                     6000
+S6 Srikanth             Processor                   8500
+D  dffd                 dsss                         564
+
+SQL> insert into sup6 values('k','dgg','dfsd',900);
+insert into sup6 values('k','dgg','dfsd',900)
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> insert into sup6 values('k','dgg','df',900);
+insert into sup6 values('k','dgg','df',900)
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> desc sup7;
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ SUP_NO                                                                                                            NOT NULL VARCHAR2(2)
+ SUP_NAME                                                                                                          NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                                                                                                     NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                                                                                                NUMBER(5)
+
+SQL> insert into sup6 values('S20','dgg','dfsd',5555);
+insert into sup6 values('S20','dgg','dfsd',5555)
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> insert into sup7 values('S20','dgg','dfsd',5555);
+insert into sup7 values('S20','dgg','dfsd',5555)
+                        *
+ERROR at line 1:
+ORA-12899: value too large for column "QTM230"."SUPPLIER"."SUP_NO" (actual: 3, maximum: 2)
+
+
+SQL> insert into sup7 values('SS','dgg','dfsd',5555);
+
+1 row created.
+
+SQL> select * from sup7;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE
+-- -------------------- -------------------- -----------
+S4 Ramesh               Processor                   9000
+S2 Kiran                Processor                   8000
+S5 Manish               Printer                     6000
+S6 Srikanth             Processor                   8500
+D  dffd                 dsss                         564
+SS dgg                  dfsd                        5555
+
+6 rows selected.
+
+SQL> insert into sup7 values('SK','dgg','dfsd',400);
+insert into sup7 values('SK','dgg','dfsd',400)
+            *
+ERROR at line 1:
+ORA-01402: view WITH CHECK OPTION where-clause violation
+
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+SS dgg                  dfsd                        5555
+
+8 rows selected.
+
+SQL> Create materialized view MV1 As select sup_no,sup_name,city from supplier;
+
+Materialized view created.
+
+SQL> select * from mv1;
+
+SU SUP_NAME             CITY
+-- -------------------- --------------------
+S1 Suresh               Hyderabad
+S4 Ramesh               Bangalore
+S2 Kiran                Delhi
+S3 Mohan                Delhi
+S5 Manish               Mumbai
+S6 Srikanth             Chennai
+D  dffd                 dsds
+SS dgg
+
+8 rows selected.
+
+SQL> delete supplier where sup_no='SS';
+
+1 row deleted.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> select * from sup7;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE
+-- -------------------- -------------------- -----------
+S4 Ramesh               Processor                   9000
+S2 Kiran                Processor                   8000
+S5 Manish               Printer                     6000
+S6 Srikanth             Processor                   8500
+D  dffd                 dsss                         564
+
+SQL> select * from sup6;
+
+SU SUP_NAME             ITEM_SUPPLIED
+-- -------------------- --------------------
+S4 Ramesh               Processor
+S2 Kiran                Processor
+S5 Manish               Printer
+S6 Srikanth             Processor
+
+SQL> select * from mv1;
+
+SU SUP_NAME             CITY
+-- -------------------- --------------------
+S1 Suresh               Hyderabad
+S4 Ramesh               Bangalore
+S2 Kiran                Delhi
+S3 Mohan                Delhi
+S5 Manish               Mumbai
+S6 Srikanth             Chennai
+D  dffd                 dsds
+SS dgg
+
+8 rows selected.
+
+SQL> EXEC DBMS_MVIEW.REFRESH('MV1');
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from mv1;
+
+SU SUP_NAME             CITY
+-- -------------------- --------------------
+S1 Suresh               Hyderabad
+S4 Ramesh               Bangalore
+S2 Kiran                Delhi
+S3 Mohan                Delhi
+S5 Manish               Mumbai
+S6 Srikanth             Chennai
+D  dffd                 dsds
+
+7 rows selected.
+
+SQL>

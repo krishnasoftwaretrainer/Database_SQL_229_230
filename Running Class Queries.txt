@@ -4263,3 +4263,939 @@ D  dffd                 dsds
 7 rows selected.
 
 SQL>
+============================
+06-02-2026
+
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Feb 6 10:10:43 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+MV1                            TABLE
+S1                             TABLE
+STU1                           TABLE
+STUSUP1                        VIEW
+SUP5                           VIEW
+SUP6                           VIEW
+SUP7                           VIEW
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+SUPV1                          VIEW
+
+12 rows selected.
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+
+SQL> create index idx_sup1 on supplier(sup_no);
+create index idx_sup1 on supplier(sup_no)
+                                  *
+ERROR at line 1:
+ORA-01408: such column list already indexed
+
+
+SQL> create index idx_sup1 on supplier(city);
+
+Index created.
+
+SQL> select index_name,index_type from user_indexes;
+
+INDEX_NAME                     INDEX_TYPE
+------------------------------ ---------------------------
+IDX_SUP1                       NORMAL
+SYS_C007171                    NORMAL
+SYS_C007195                    NORMAL
+
+SQL> create index idx_sup1 on supplier(ITEAM_PRICE);
+create index idx_sup1 on supplier(ITEAM_PRICE)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create index idx_sup2 on supplier(ITEAM_PRICE);
+
+Index created.
+
+SQL> select index_name,index_type from user_indexes;
+
+INDEX_NAME                     INDEX_TYPE
+------------------------------ ---------------------------
+IDX_SUP1                       NORMAL
+IDX_SUP2                       NORMAL
+SYS_C007171                    NORMAL
+SYS_C007195                    NORMAL
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUP1                       SUPPLIER
+IDX_SUP2                       SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> ALTER INDEX idx_sup1 RENAME TO idx_supCity;
+
+Index altered.
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUPCITY                    SUPPLIER
+IDX_SUP2                       SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> DROP INDEX idx_sup2;
+
+Index dropped.
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUPCITY                    SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> create index idx_sup2 on supplier(ITEAM_PRICE,City,ITEM_SUPPLIED);
+
+Index created.
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUPCITY                    SUPPLIER
+IDX_SUP2                       SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> DROP INDEX idx_sup2;
+
+Index dropped.
+
+SQL> CREATE UNIQUE INDEX idx_supunique ON supplier(city);
+CREATE UNIQUE INDEX idx_supunique ON supplier(city)
+                                              *
+ERROR at line 1:
+ORA-01408: such column list already indexed
+
+
+SQL> CREATE UNIQUE INDEX idx_supunique ON supplier(sup_name);
+
+Index created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> insert into supplier values('gg','Suresh','hhh,567,'gfgf');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into supplier values('gg','Suresh','hhh',567,'gfgf');
+insert into supplier values('gg','Suresh','hhh',567,'gfgf')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (QTM230.IDX_SUPUNIQUE) violated
+
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> SELECT * FRom tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+MV1                            TABLE
+S1                             TABLE
+STU1                           TABLE
+STUSUP1                        VIEW
+SUP5                           VIEW
+SUP6                           VIEW
+SUP7                           VIEW
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+SUPV1                          VIEW
+
+12 rows selected.
+
+SQL> SELECT * FRom emp;
+SELECT * FRom emp
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT * FRom emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT EID FROM emp1 WHERE salary > 150) ;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+6 rows selected.
+
+SQL> SELECT EID FROM emp1 WHERE salary > 150;
+
+       EID
+----------
+         1
+         4
+         5
+         5
+         5
+         5
+
+6 rows selected.
+
+SQL> SELECT EID FROM emp1 WHERE salary > 350;
+
+       EID
+----------
+         1
+         4
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT EID FROM emp1 WHERE salary > 350) ;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         4 gggg                        987 01-JUL-80
+
+SQL> SELECT * FRom emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM student WHERE salary >350);
+SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM student WHERE salary >350)
+                                                                                                          *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM emp2 WHERE salary >350);
+
+no rows selected
+
+SQL> SELECT ename FROM emp2 WHERE salary >350;
+
+ENAME
+--------------------
+Krishna
+gggg
+gfg
+ppp
+gfg
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM emp1 WHERE salary >350);
+
+no rows selected
+
+SQL> SELECT ename FROM emp1 WHERE salary >350;
+
+ENAME
+--------------------
+Krishna
+gggg
+
+SQL> SELECT eID FROM emp1 WHERE salary < 350;
+
+       EID
+----------
+         3
+         5
+         5
+         5
+         5
+
+SQL> SELECT * FRom emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT eID FROM emp1 WHERE salary < 550;
+
+       EID
+----------
+         1
+         3
+         5
+         5
+         5
+         5
+
+6 rows selected.
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 550) and ename IN (SELECT ename FROM emp1 WHERE salary >350);
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard               400 Hyderabad
+S4 Ramesh               Processor             9000 Bangalore
+S2 Kiran                Processor             8000 Delhi
+S3 Mohan                Mouse                  350 Delhi
+S5 Manish               Printer               6000 Mumbai
+S6 Srikanth             Processor             8500 Chennai
+D  dffd                 dsss                   564 dsds
+
+7 rows selected.
+
+SQL>
+
+SQL*Plus: Release 11.2.0.2.0 Production on Fri Feb 6 10:10:43 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+MV1                            TABLE
+S1                             TABLE
+STU1                           TABLE
+STUSUP1                        VIEW
+SUP5                           VIEW
+SUP6                           VIEW
+SUP7                           VIEW
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+SUPV1                          VIEW
+
+12 rows selected.
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+
+SQL> create index idx_sup1 on supplier(sup_no);
+create index idx_sup1 on supplier(sup_no)
+                                  *
+ERROR at line 1:
+ORA-01408: such column list already indexed
+
+
+SQL> create index idx_sup1 on supplier(city);
+
+Index created.
+
+SQL> select index_name,index_type from user_indexes;
+
+INDEX_NAME                     INDEX_TYPE
+------------------------------ ---------------------------
+IDX_SUP1                       NORMAL
+SYS_C007171                    NORMAL
+SYS_C007195                    NORMAL
+
+SQL> create index idx_sup1 on supplier(ITEAM_PRICE);
+create index idx_sup1 on supplier(ITEAM_PRICE)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create index idx_sup2 on supplier(ITEAM_PRICE);
+
+Index created.
+
+SQL> select index_name,index_type from user_indexes;
+
+INDEX_NAME                     INDEX_TYPE
+------------------------------ ---------------------------
+IDX_SUP1                       NORMAL
+IDX_SUP2                       NORMAL
+SYS_C007171                    NORMAL
+SYS_C007195                    NORMAL
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUP1                       SUPPLIER
+IDX_SUP2                       SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> ALTER INDEX idx_sup1 RENAME TO idx_supCity;
+
+Index altered.
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUPCITY                    SUPPLIER
+IDX_SUP2                       SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> DROP INDEX idx_sup2;
+
+Index dropped.
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUPCITY                    SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> create index idx_sup2 on supplier(ITEAM_PRICE,City,ITEM_SUPPLIED);
+
+Index created.
+
+SQL> select index_name, table_name from user_indexes;
+
+INDEX_NAME                     TABLE_NAME
+------------------------------ ------------------------------
+IDX_SUPCITY                    SUPPLIER
+IDX_SUP2                       SUPPLIER
+SYS_C007171                    SUPPLIER
+SYS_C007195                    MV1
+
+SQL> DROP INDEX idx_sup2;
+
+Index dropped.
+
+SQL> CREATE UNIQUE INDEX idx_supunique ON supplier(city);
+CREATE UNIQUE INDEX idx_supunique ON supplier(city)
+                                              *
+ERROR at line 1:
+ORA-01408: such column list already indexed
+
+
+SQL> CREATE UNIQUE INDEX idx_supunique ON supplier(sup_name);
+
+Index created.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> insert into supplier values('gg','Suresh','hhh,567,'gfgf');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into supplier values('gg','Suresh','hhh',567,'gfgf');
+insert into supplier values('gg','Suresh','hhh',567,'gfgf')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (QTM230.IDX_SUPUNIQUE) violated
+
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> SELECT * FRom tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+MV1                            TABLE
+S1                             TABLE
+STU1                           TABLE
+STUSUP1                        VIEW
+SUP5                           VIEW
+SUP6                           VIEW
+SUP7                           VIEW
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+SUPV1                          VIEW
+
+12 rows selected.
+
+SQL> SELECT * FRom emp;
+SELECT * FRom emp
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT * FRom emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT EID FROM emp1 WHERE salary > 150) ;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+6 rows selected.
+
+SQL> SELECT EID FROM emp1 WHERE salary > 150;
+
+       EID
+----------
+         1
+         4
+         5
+         5
+         5
+         5
+
+6 rows selected.
+
+SQL> SELECT EID FROM emp1 WHERE salary > 350;
+
+       EID
+----------
+         1
+         4
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT EID FROM emp1 WHERE salary > 350) ;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         4 gggg                        987 01-JUL-80
+
+SQL> SELECT * FRom emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM student WHERE salary >350);
+SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM student WHERE salary >350)
+                                                                                                          *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM emp2 WHERE salary >350);
+
+no rows selected
+
+SQL> SELECT ename FROM emp2 WHERE salary >350;
+
+ENAME
+--------------------
+Krishna
+gggg
+gfg
+ppp
+gfg
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 350) and ename IN (SELECT ename FROM emp1 WHERE salary >350);
+
+no rows selected
+
+SQL> SELECT ename FROM emp1 WHERE salary >350;
+
+ENAME
+--------------------
+Krishna
+gggg
+
+SQL> SELECT eID FROM emp1 WHERE salary < 350;
+
+       EID
+----------
+         3
+         5
+         5
+         5
+         5
+
+SQL> SELECT * FRom emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT eID FROM emp1 WHERE salary < 550;
+
+       EID
+----------
+         1
+         3
+         5
+         5
+         5
+         5
+
+6 rows selected.
+
+SQL> SELECT * FROM emp1 WHERE eID IN (SELECT eID FROM emp1 WHERE salary < 550) and ename IN (SELECT ename FROM emp1 WHERE salary >350);
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard               400 Hyderabad
+S4 Ramesh               Processor             9000 Bangalore
+S2 Kiran                Processor             8000 Delhi
+S3 Mohan                Mouse                  350 Delhi
+S5 Manish               Printer               6000 Mumbai
+S6 Srikanth             Processor             8500 Chennai
+D  dffd                 dsss                   564 dsds
+
+7 rows selected.
+
+SQL> create table seq1(seqid number(5),seqname varchar2(10));
+
+Table created.
+
+SQL> desc seq1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SEQID                                              NUMBER(5)
+ SEQNAME                                            VARCHAR2(10)
+
+SQL> insert into seq1 values(1,'abc');
+
+1 row created.
+
+SQL> insert into seq1 values(2,'ppp');
+
+1 row created.
+
+SQL> select * from seq1;
+
+     SEQID SEQNAME
+---------- ----------
+         1 abc
+         2 ppp
+
+SQL> truncate seq1;
+truncate seq1
+            *
+ERROR at line 1:
+ORA-03290: Invalid truncate command - missing CLUSTER or TABLE keyword
+
+
+SQL> truncate table seq1;
+
+Table truncated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from seq1;
+
+no rows selected
+
+SQL> CREATE SEQUENCE seq1_seqid START WITH 1 INCREMENT BY 1;
+
+Sequence created.
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'John');
+
+1 row created.
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'Krishna');
+
+1 row created.
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'Ramesh');
+
+1 row created.
+
+SQL> select * from seq1;
+
+     SEQID SEQNAME
+---------- ----------
+         1 John
+         2 Krishna
+         3 Ramesh
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'jfjjh');
+
+1 row created.
+
+SQL> select * from seq1;
+
+     SEQID SEQNAME
+---------- ----------
+         1 John
+         2 Krishna
+         3 Ramesh
+         4 jfjjh
+
+SQL> SELECT seq1_seqid.CURRVAL FROM DUAL;
+
+   CURRVAL
+----------
+         4
+
+SQL> ALTER SEQUENCE seq1_seqid INCREMENT BY 1 MAXVALUE 8;
+
+Sequence altered.
+
+SQL> select * from seq1;
+
+     SEQID SEQNAME
+---------- ----------
+         1 John
+         2 Krishna
+         3 Ramesh
+         4 jfjjh
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'hgvbn');
+
+1 row created.
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'qqqq');
+
+1 row created.
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'qaaaa');
+
+1 row created.
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'dgdfd');
+
+1 row created.
+
+SQL> INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'hjgjhg');
+INSERT INTO seq1 (seqid, seqname) VALUES (seq1_seqid.NEXTVAL, 'hjgjhg')
+                                          *
+ERROR at line 1:
+ORA-08004: sequence SEQ1_SEQID.NEXTVAL exceeds MAXVALUE and cannot be
+instantiated
+
+
+SQL> select * from seq1;
+
+     SEQID SEQNAME
+---------- ----------
+         1 John
+         2 Krishna
+         3 Ramesh
+         4 jfjjh
+         5 hgvbn
+         6 qqqq
+         7 qaaaa
+         8 dgdfd
+
+8 rows selected.
+
+SQL> insert into seq1(10,'kkkk');
+insert into seq1(10,'kkkk')
+                 *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into seq1 values(10,'kkkk');
+
+1 row created.
+
+SQL> select * from seq1;
+
+     SEQID SEQNAME
+---------- ----------
+         1 John
+         2 Krishna
+         3 Ramesh
+         4 jfjjh
+         5 hgvbn
+         6 qqqq
+         7 qaaaa
+         8 dgdfd
+        10 kkkk
+
+9 rows selected.
+
+SQL>

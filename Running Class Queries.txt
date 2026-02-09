@@ -5199,3 +5199,1076 @@ SQL> select * from seq1;
 9 rows selected.
 
 SQL>
+================================
+09-02-2026
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 9 10:17:08 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+MV1                            TABLE
+S1                             TABLE
+SEQ1                           TABLE
+STU1                           TABLE
+STUSUP1                        VIEW
+SUP5                           VIEW
+SUP6                           VIEW
+SUP7                           VIEW
+SUPPLIER                       TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+SUPTAB1                        TABLE
+SUPV1                          VIEW
+
+13 rows selected.
+
+SQL> select * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> select * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT S.sup_ID, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM suppliers s INNER JOIN emp1 e ON s.sup_iD = e.eID;
+SELECT S.sup_ID, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM suppliers s INNER JOIN emp1 e ON s.sup_iD = e.eID
+                                                                *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc suppliers;
+ERROR:
+ORA-04043: object suppliers does not exist
+
+
+SQL> desc supplier;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUP_NO                                    NOT NULL VARCHAR2(2)
+ SUP_NAME                                  NOT NULL VARCHAR2(20)
+ ITEM_SUPPLIED                             NOT NULL VARCHAR2(20)
+ ITEAM_PRICE                                        NUMBER(5)
+ CITY                                               VARCHAR2(20)
+
+SQL> SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_iD = e.eID;
+SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_iD = e.eID
+                                                                                                *
+ERROR at line 1:
+ORA-00904: "S"."SUP_ID": invalid identifier
+
+
+SQL> SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_no = e.eID;
+SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_no = e.eID
+                                                                                                *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> select * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT s.stuid, s.sNAME, s.marks,e.eid,e.ename FROM stu1 s INNER JOIN emp1 e ON s.stuid = e.eID;
+
+no rows selected
+
+SQL> insert into stu1 values(2,'Srinivas',666);
+
+1 row created.
+
+SQL> SELECT s.stuid, s.sNAME, s.marks,e.eid,e.ename FROM stu1 s INNER JOIN emp1 e ON s.stuid = e.eID;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+         2 Srinivas                    666          2 Suresh
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+         2 Srinivas                    666
+
+7 rows selected.
+
+SQL> SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 INNER JOIN emp1 ON stu1.stuid = emp1.eID;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+         2 Srinivas                    666          2 Suresh
+
+SQL> SELECT s.stuid, s.sNAME, s.marks,e.eid,e.ename FROM stu1 s INNER JOIN emp1 e ON s.stuid != e.eID;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1001 Krishna                     999          1 Krishna
+      1001 Krishna                     999          2 Suresh
+      1001 Krishna                     999          3 abcd
+      1001 Krishna                     999          4 gggg
+      1001 Krishna                     999          5 yyyy
+      1001 Krishna                     999          5 yyyy
+      1001 Krishna                     999          5 yyyy
+      1001 Krishna                     999          5 yyyy
+      1002 Ramesh                      899          1 Krishna
+      1002 Ramesh                      899          2 Suresh
+      1002 Ramesh                      899          3 abcd
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1002 Ramesh                      899          4 gggg
+      1002 Ramesh                      899          5 yyyy
+      1002 Ramesh                      899          5 yyyy
+      1002 Ramesh                      899          5 yyyy
+      1002 Ramesh                      899          5 yyyy
+      1003 Suresh                      799          1 Krishna
+      1003 Suresh                      799          2 Suresh
+      1003 Suresh                      799          3 abcd
+      1003 Suresh                      799          4 gggg
+      1003 Suresh                      799          5 yyyy
+      1003 Suresh                      799          5 yyyy
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1003 Suresh                      799          5 yyyy
+      1003 Suresh                      799          5 yyyy
+      1004 Mahesh                      699          1 Krishna
+      1004 Mahesh                      699          2 Suresh
+      1004 Mahesh                      699          3 abcd
+      1004 Mahesh                      699          4 gggg
+      1004 Mahesh                      699          5 yyyy
+      1004 Mahesh                      699          5 yyyy
+      1004 Mahesh                      699          5 yyyy
+      1004 Mahesh                      699          5 yyyy
+      1005 Ganesh                      599          1 Krishna
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1005 Ganesh                      599          2 Suresh
+      1005 Ganesh                      599          3 abcd
+      1005 Ganesh                      599          4 gggg
+      1005 Ganesh                      599          5 yyyy
+      1005 Ganesh                      599          5 yyyy
+      1005 Ganesh                      599          5 yyyy
+      1005 Ganesh                      599          5 yyyy
+      1006 Rajesh                      499          1 Krishna
+      1006 Rajesh                      499          2 Suresh
+      1006 Rajesh                      499          3 abcd
+      1006 Rajesh                      499          4 gggg
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1006 Rajesh                      499          5 yyyy
+      1006 Rajesh                      499          5 yyyy
+      1006 Rajesh                      499          5 yyyy
+      1006 Rajesh                      499          5 yyyy
+         2 Srinivas                    666          1 Krishna
+         2 Srinivas                    666          3 abcd
+         2 Srinivas                    666          4 gggg
+         2 Srinivas                    666          5 yyyy
+         2 Srinivas                    666          5 yyyy
+         2 Srinivas                    666          5 yyyy
+         2 Srinivas                    666          5 yyyy
+
+55 rows selected.
+
+SQL> SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_no = e.eID;
+SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_no = e.eID
+                                                                                                *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_no != e.eID;
+SELECT S.sup_no, s.sup_NAME, s.item_supplied,e.eid,e.ename FROM supplier s INNER JOIN emp1 e ON s.sup_no != e.eID
+                                                                                                *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 left JOIN emp1 ON stu1.stuid = emp1.eID;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+         2 Srinivas                    666          2 Suresh
+      1006 Rajesh                      499
+      1001 Krishna                     999
+      1005 Ganesh                      599
+      1002 Ramesh                      899
+      1004 Mahesh                      699
+      1003 Suresh                      799
+
+7 rows selected.
+
+SQL> SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 left JOIN emp1 ON stu1.stuid != emp1.eID;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1001 Krishna                     999          1 Krishna
+      1001 Krishna                     999          2 Suresh
+      1001 Krishna                     999          3 abcd
+      1001 Krishna                     999          4 gggg
+      1001 Krishna                     999          5 yyyy
+      1001 Krishna                     999          5 yyyy
+      1001 Krishna                     999          5 yyyy
+      1001 Krishna                     999          5 yyyy
+      1002 Ramesh                      899          1 Krishna
+      1002 Ramesh                      899          2 Suresh
+      1002 Ramesh                      899          3 abcd
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1002 Ramesh                      899          4 gggg
+      1002 Ramesh                      899          5 yyyy
+      1002 Ramesh                      899          5 yyyy
+      1002 Ramesh                      899          5 yyyy
+      1002 Ramesh                      899          5 yyyy
+      1003 Suresh                      799          1 Krishna
+      1003 Suresh                      799          2 Suresh
+      1003 Suresh                      799          3 abcd
+      1003 Suresh                      799          4 gggg
+      1003 Suresh                      799          5 yyyy
+      1003 Suresh                      799          5 yyyy
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1003 Suresh                      799          5 yyyy
+      1003 Suresh                      799          5 yyyy
+      1004 Mahesh                      699          1 Krishna
+      1004 Mahesh                      699          2 Suresh
+      1004 Mahesh                      699          3 abcd
+      1004 Mahesh                      699          4 gggg
+      1004 Mahesh                      699          5 yyyy
+      1004 Mahesh                      699          5 yyyy
+      1004 Mahesh                      699          5 yyyy
+      1004 Mahesh                      699          5 yyyy
+      1005 Ganesh                      599          1 Krishna
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1005 Ganesh                      599          2 Suresh
+      1005 Ganesh                      599          3 abcd
+      1005 Ganesh                      599          4 gggg
+      1005 Ganesh                      599          5 yyyy
+      1005 Ganesh                      599          5 yyyy
+      1005 Ganesh                      599          5 yyyy
+      1005 Ganesh                      599          5 yyyy
+      1006 Rajesh                      499          1 Krishna
+      1006 Rajesh                      499          2 Suresh
+      1006 Rajesh                      499          3 abcd
+      1006 Rajesh                      499          4 gggg
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1006 Rajesh                      499          5 yyyy
+      1006 Rajesh                      499          5 yyyy
+      1006 Rajesh                      499          5 yyyy
+      1006 Rajesh                      499          5 yyyy
+         2 Srinivas                    666          1 Krishna
+         2 Srinivas                    666          3 abcd
+         2 Srinivas                    666          4 gggg
+         2 Srinivas                    666          5 yyyy
+         2 Srinivas                    666          5 yyyy
+         2 Srinivas                    666          5 yyyy
+         2 Srinivas                    666          5 yyyy
+
+55 rows selected.
+
+SQL> SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 right JOIN emp1 ON stu1.stuid = emp1.eID;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+         2 Srinivas                    666          2 Suresh
+                                                    5 yyyy
+                                                    5 yyyy
+                                                    5 yyyy
+                                                    5 yyyy
+                                                    3 abcd
+                                                    1 Krishna
+                                                    4 gggg
+
+8 rows selected.
+
+SQL> SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 full JOIN emp1 ON stu1.stuid = emp1.eID;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+                                                    1 Krishna
+         2 Srinivas                    666          2 Suresh
+                                                    3 abcd
+                                                    4 gggg
+                                                    5 yyyy
+                                                    5 yyyy
+                                                    5 yyyy
+                                                    5 yyyy
+      1006 Rajesh                      499
+      1001 Krishna                     999
+      1005 Ganesh                      599
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+      1002 Ramesh                      899
+      1004 Mahesh                      699
+      1003 Suresh                      799
+
+14 rows selected.
+
+SQL> SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 full JOIN emp1 ON stu1.stuid = emp1.eID orde by stuid;
+SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 full JOIN emp1 ON stu1.stuid = emp1.eID orde by stuid
+                                                                                                                *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> SELECT stu1.stuid, stu1.sNAME, stu1.marks,emp1.eid,emp1.ename FROM stu1 full JOIN emp1 ON stu1.stuid = emp1.eID order by stuid;
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+         2 Srinivas                    666          2 Suresh
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+                                                    5 yyyy
+                                                    5 yyyy
+                                                    5 yyyy
+                                                    4 gggg
+
+     STUID SNAME                     MARKS        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+                                                    3 abcd
+                                                    1 Krishna
+                                                    5 yyyy
+
+14 rows selected.
+
+SQL> select emp1.eid,emp1.ename from emp1 inner join emp1.eid=emp1.salary;
+select emp1.eid,emp1.ename from emp1 inner join emp1.eid=emp1.salary
+                                                        *
+ERROR at line 1:
+ORA-00905: missing keyword
+
+
+SQL> select emp1.eid,emp1.ename from emp1 inner join on emp1.eid=emp1.salary;
+select emp1.eid,emp1.ename from emp1 inner join on emp1.eid=emp1.salary
+                                                *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> select emp1.eid,emp1.ename,emp1.salary from emp1 inner join emp1 on emp1.eid=emp1.salary;
+select emp1.eid,emp1.ename,emp1.salary from emp1 inner join emp1 on emp1.eid=emp1.salary
+                           *
+ERROR at line 1:
+ORA-00918: column ambiguously defined
+
+
+SQL> select emp1.eid,emp1.ename from emp1 inner join emp1 on emp1.eid=emp1.salary;
+select emp1.eid,emp1.ename from emp1 inner join emp1 on emp1.eid=emp1.salary
+                *
+ERROR at line 1:
+ORA-00918: column ambiguously defined
+
+
+SQL> select e1.eid,e1.ename,e1.salary,e2.eid,e2.ename,e2.salary from emp1 e1 inner join emp1 e2 on e1.eid=e2.eid;
+
+       EID ENAME                    SALARY        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+    SALARY
+----------
+         1 Krishna                 523.123          1 Krishna
+   523.123
+
+         2 Suresh                                   2 Suresh
+
+
+         3 abcd                        123          3 abcd
+       123
+
+
+       EID ENAME                    SALARY        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+    SALARY
+----------
+         4 gggg                        987          4 gggg
+       987
+
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+
+       EID ENAME                    SALARY        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+    SALARY
+----------
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+
+       EID ENAME                    SALARY        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+    SALARY
+----------
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+
+       EID ENAME                    SALARY        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+    SALARY
+----------
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+
+       EID ENAME                    SALARY        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+    SALARY
+----------
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+
+       EID ENAME                    SALARY        EID ENAME
+---------- -------------------- ---------- ---------- --------------------
+    SALARY
+----------
+         5 yyyy                        345          5 yyyy
+       345
+
+         5 yyyy                        345          5 yyyy
+       345
+
+
+20 rows selected.
+
+SQL> set line size 200;
+SP2-0268: linesize option not a valid number
+SQL> set linesize 200;
+SQL> select e1.eid,e1.ename,e1.salary,e2.eid,e2.ename,e2.salary from emp1 e1 inner join emp1 e2 on e1.eid=e2.eid;
+
+       EID ENAME                    SALARY        EID ENAME                    SALARY
+---------- -------------------- ---------- ---------- -------------------- ----------
+         1 Krishna                 523.123          1 Krishna                 523.123
+         2 Suresh                                   2 Suresh
+         3 abcd                        123          3 abcd                        123
+         4 gggg                        987          4 gggg                        987
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+
+       EID ENAME                    SALARY        EID ENAME                    SALARY
+---------- -------------------- ---------- ---------- -------------------- ----------
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+         5 yyyy                        345          5 yyyy                        345
+
+20 rows selected.
+
+SQL> select e1.eid,e1.ename,e1.salary,e2.eid,e2.ename,e2.salary from emp1 e1 inner join emp1 e2 on e1.eid!=e2.eid;
+
+       EID ENAME                    SALARY        EID ENAME                    SALARY
+---------- -------------------- ---------- ---------- -------------------- ----------
+         1 Krishna                 523.123          2 Suresh
+         1 Krishna                 523.123          3 abcd                        123
+         1 Krishna                 523.123          4 gggg                        987
+         1 Krishna                 523.123          5 yyyy                        345
+         1 Krishna                 523.123          5 yyyy                        345
+         1 Krishna                 523.123          5 yyyy                        345
+         1 Krishna                 523.123          5 yyyy                        345
+         2 Suresh                                   1 Krishna                 523.123
+         2 Suresh                                   3 abcd                        123
+         2 Suresh                                   4 gggg                        987
+         2 Suresh                                   5 yyyy                        345
+
+       EID ENAME                    SALARY        EID ENAME                    SALARY
+---------- -------------------- ---------- ---------- -------------------- ----------
+         2 Suresh                                   5 yyyy                        345
+         2 Suresh                                   5 yyyy                        345
+         2 Suresh                                   5 yyyy                        345
+         3 abcd                        123          1 Krishna                 523.123
+         3 abcd                        123          2 Suresh
+         3 abcd                        123          4 gggg                        987
+         3 abcd                        123          5 yyyy                        345
+         3 abcd                        123          5 yyyy                        345
+         3 abcd                        123          5 yyyy                        345
+         3 abcd                        123          5 yyyy                        345
+         4 gggg                        987          1 Krishna                 523.123
+
+       EID ENAME                    SALARY        EID ENAME                    SALARY
+---------- -------------------- ---------- ---------- -------------------- ----------
+         4 gggg                        987          2 Suresh
+         4 gggg                        987          3 abcd                        123
+         4 gggg                        987          5 yyyy                        345
+         4 gggg                        987          5 yyyy                        345
+         4 gggg                        987          5 yyyy                        345
+         4 gggg                        987          5 yyyy                        345
+         5 yyyy                        345          1 Krishna                 523.123
+         5 yyyy                        345          2 Suresh
+         5 yyyy                        345          3 abcd                        123
+         5 yyyy                        345          4 gggg                        987
+         5 yyyy                        345          1 Krishna                 523.123
+
+       EID ENAME                    SALARY        EID ENAME                    SALARY
+---------- -------------------- ---------- ---------- -------------------- ----------
+         5 yyyy                        345          2 Suresh
+         5 yyyy                        345          3 abcd                        123
+         5 yyyy                        345          4 gggg                        987
+         5 yyyy                        345          1 Krishna                 523.123
+         5 yyyy                        345          2 Suresh
+         5 yyyy                        345          3 abcd                        123
+         5 yyyy                        345          4 gggg                        987
+         5 yyyy                        345          1 Krishna                 523.123
+         5 yyyy                        345          2 Suresh
+         5 yyyy                        345          3 abcd                        123
+         5 yyyy                        345          4 gggg                        987
+
+44 rows selected.
+
+SQL>
+SQL> SELECT supplier.sup_no, supplier.sup_NAME, emp1.eid, emp1.ename FROM supplier CROSS JOIN emp1;
+
+SU SUP_NAME                    EID ENAME
+-- -------------------- ---------- --------------------
+S1 Suresh                        1 Krishna
+S1 Suresh                        2 Suresh
+S1 Suresh                        3 abcd
+S1 Suresh                        4 gggg
+S1 Suresh                        5 yyyy
+S1 Suresh                        5 yyyy
+S1 Suresh                        5 yyyy
+S1 Suresh                        5 yyyy
+S4 Ramesh                        1 Krishna
+S4 Ramesh                        2 Suresh
+S4 Ramesh                        3 abcd
+
+SU SUP_NAME                    EID ENAME
+-- -------------------- ---------- --------------------
+S4 Ramesh                        4 gggg
+S4 Ramesh                        5 yyyy
+S4 Ramesh                        5 yyyy
+S4 Ramesh                        5 yyyy
+S4 Ramesh                        5 yyyy
+S2 Kiran                         1 Krishna
+S2 Kiran                         2 Suresh
+S2 Kiran                         3 abcd
+S2 Kiran                         4 gggg
+S2 Kiran                         5 yyyy
+S2 Kiran                         5 yyyy
+
+SU SUP_NAME                    EID ENAME
+-- -------------------- ---------- --------------------
+S2 Kiran                         5 yyyy
+S2 Kiran                         5 yyyy
+S3 Mohan                         1 Krishna
+S3 Mohan                         2 Suresh
+S3 Mohan                         3 abcd
+S3 Mohan                         4 gggg
+S3 Mohan                         5 yyyy
+S3 Mohan                         5 yyyy
+S3 Mohan                         5 yyyy
+S3 Mohan                         5 yyyy
+S5 Manish                        1 Krishna
+
+SU SUP_NAME                    EID ENAME
+-- -------------------- ---------- --------------------
+S5 Manish                        2 Suresh
+S5 Manish                        3 abcd
+S5 Manish                        4 gggg
+S5 Manish                        5 yyyy
+S5 Manish                        5 yyyy
+S5 Manish                        5 yyyy
+S5 Manish                        5 yyyy
+S6 Srikanth                      1 Krishna
+S6 Srikanth                      2 Suresh
+S6 Srikanth                      3 abcd
+S6 Srikanth                      4 gggg
+
+SU SUP_NAME                    EID ENAME
+-- -------------------- ---------- --------------------
+S6 Srikanth                      5 yyyy
+S6 Srikanth                      5 yyyy
+S6 Srikanth                      5 yyyy
+S6 Srikanth                      5 yyyy
+D  dffd                          1 Krishna
+D  dffd                          2 Suresh
+D  dffd                          3 abcd
+D  dffd                          4 gggg
+D  dffd                          5 yyyy
+D  dffd                          5 yyyy
+D  dffd                          5 yyyy
+
+SU SUP_NAME                    EID ENAME
+-- -------------------- ---------- --------------------
+D  dffd                          5 yyyy
+
+56 rows selected.
+
+SQL> SELECT * from supplier;
+
+SU SUP_NAME             ITEM_SUPPLIED        ITEAM_PRICE CITY
+-- -------------------- -------------------- ----------- --------------------
+S1 Suresh               Keyboard                     400 Hyderabad
+S4 Ramesh               Processor                   9000 Bangalore
+S2 Kiran                Processor                   8000 Delhi
+S3 Mohan                Mouse                        350 Delhi
+S5 Manish               Printer                     6000 Mumbai
+S6 Srikanth             Processor                   8500 Chennai
+D  dffd                 dsss                         564 dsds
+
+7 rows selected.
+
+SQL> SELECT * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL>
+SQL> CREATE SYNONYM Employees for emp1;;
+CREATE SYNONYM Employees for emp1;
+                                 *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> CREATE SYNONYM Employees for emp1;
+
+Synonym created.
+
+SQL> SELECT * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT * from employees;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> rename emp1 to emp5;
+
+Table renamed.
+
+SQL> SELECT * from emp1;
+SELECT * from emp1
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT * from emp5;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> rename emp5 to emp1;
+
+Table renamed.
+
+SQL> SELECT * from emp1;
+
+       EID ENAME                    SALARY DOJ
+---------- -------------------- ---------- ---------
+         1 Krishna                 523.123 10-JAN-85
+         2 Suresh
+         3 abcd                        123 01-JUL-67
+         4 gggg                        987 01-JUL-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+         5 yyyy                        345 01-AUG-80
+
+8 rows selected.
+
+SQL> SELECT * from emp5;
+SELECT * from emp5
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT eid as empid from emp1;
+
+     EMPID
+----------
+         1
+         2
+         3
+         4
+         5
+         5
+         5
+         5
+
+8 rows selected.
+
+SQL> SELECT eid as empid,ename as empname from emp1;
+
+     EMPID EMPNAME
+---------- --------------------
+         1 Krishna
+         2 Suresh
+         3 abcd
+         4 gggg
+         5 yyyy
+         5 yyyy
+         5 yyyy
+         5 yyyy
+
+8 rows selected.
+
+SQL> select 2+3 from dual;
+
+       2+3
+----------
+         5
+
+SQL> select 2+3 as addition from dual;
+
+  ADDITION
+----------
+         5
+
+SQL>
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 9 11:04:14 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230'
+Enter password:
+ERROR:
+ORA-01005: null password given; logon denied
+
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+         2 Srinivas                    666
+
+7 rows selected.
+
+SQL> delete stu1 where stuid=2;
+
+1 row deleted.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into stu1 avlues(1007,'LapTop',9999);
+insert into stu1 avlues(1007,'LapTop',9999)
+                        *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> update stu1 marks=9 where stuid=1001;
+update stu1 marks=9 where stuid=1001
+                 *
+ERROR at line 1:
+ORA-00971: missing SET keyword
+
+
+SQL> update table stu1 marks=9 where stuid=1001;
+update table stu1 marks=9 where stuid=1001
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> update stu1 set marks=9 where stuid=1001;
+
+1 row updated.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                       9
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> update stu1 set marks=99 where stuid=1001;
+
+1 row updated.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                      99
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> commit;
+
+===============================
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Feb 9 11:04:11 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+         2 Srinivas                    666
+
+7 rows selected.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+         2 Srinivas                    666
+
+7 rows selected.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                     999
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                      99
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL>

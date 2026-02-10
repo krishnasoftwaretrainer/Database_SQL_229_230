@@ -6272,3 +6272,187 @@ SQL> select * from stu1;
 6 rows selected.
 
 SQL>
+================================
+10-02-2026
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Feb 10 10:12:52 2026
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect qtm230;
+Enter password:
+Connected.
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                      99
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> desc stu1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUID                                              NUMBER(4)
+ SNAME                                              CHAR(20)
+ MARKS                                              NUMBER(3)
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                      99
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+
+6 rows selected.
+
+SQL> CREATE OR REPLACE TRIGGER trg_stu1_ins
+  2  BEFORE INSERT ON stu1
+  3  FOR EACH ROW
+  4  BEGIN
+  5  DBMS_OUTPUT.PUT_LINE('Stu1 Table, Insert operation performed');
+  6  END;
+  7  /
+
+Trigger created.
+
+SQL> insert into stu1 values(1007,'Rahul',759);
+
+1 row created.
+
+SQL>
+SQL> SET SERVEROUTPUT ON;
+SQL> insert into stu1 values(1007,'Rahul',759);
+Stu1 Table, Insert operation performed
+
+1 row created.
+
+SQL> insert into stu1 values(1008,'Krishna',859);
+Stu1 Table, Insert operation performed
+
+1 row created.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                      99
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+      1007 Rahul                       759
+      1007 Rahul                       759
+      1008 Krishna                     859
+
+9 rows selected.
+
+SQL> delete stu1 where stuid=1007 and sname='Rahul';
+
+2 rows deleted.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                      99
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+      1008 Krishna                     859
+
+7 rows selected.
+
+SQL> show recycle bin;
+SQL> show parameter recyclebin;
+ORA-00942: table or view does not exist
+
+
+SQL> Alter session set recycle bin = on;
+Alter session set recycle bin = on
+                  *
+ERROR at line 1:
+ORA-02248: invalid option for ALTER SESSION
+
+
+SQL> Alter session set recyclebin = on;
+
+Session altered.
+
+SQL> show recycle bin;
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMP1                           TABLE
+EMP2                           TABLE
+EMPLOYEES                      SYNONYM
+MV1                            TABLE
+S1                             TABLE
+SEQ1                           TABLE
+STU1                           TABLE
+STUSUP1                        VIEW
+SUP5                           VIEW
+SUP6                           VIEW
+SUP7                           VIEW
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+SUPPLIER                       TABLE
+SUPTAB1                        TABLE
+SUPV1                          VIEW
+
+14 rows selected.
+
+SQL> drop table s1;
+
+Table dropped.
+
+SQL> show recycle bin;
+SQL> Alter session set recyclebin = on;
+
+Session altered.
+
+SQL> flashback table s1 to before drop;
+flashback table s1 to before drop
+*
+ERROR at line 1:
+ORA-38305: object not in RECYCLE BIN
+
+
+SQL> purge recyclebin;
+
+Recyclebin purged.
+
+SQL> select * from stu1;
+
+     STUID SNAME                     MARKS
+---------- -------------------- ----------
+      1001 Krishna                      99
+      1002 Ramesh                      899
+      1003 Suresh                      799
+      1004 Mahesh                      699
+      1005 Ganesh                      599
+      1006 Rajesh                      499
+      1008 Krishna                     859
+
+7 rows selected.
+
+SQL>
+
